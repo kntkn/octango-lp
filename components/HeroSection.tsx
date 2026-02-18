@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 
-const AmbientParticles = dynamic(() => import("./AmbientParticles"), {
+const TentacleBackground = dynamic(() => import("./TentacleBackground"), {
   ssr: false,
 });
 
@@ -17,12 +17,12 @@ export default function HeroSection() {
           width: "min(900px, 80vw)",
           height: "min(700px, 70vh)",
           background:
-            "radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, rgba(59,130,246,0.03) 40%, transparent 70%)",
+            "radial-gradient(ellipse at center, rgba(59,130,246,0.06) 0%, rgba(59,130,246,0.02) 40%, transparent 70%)",
         }}
         aria-hidden="true"
       />
 
-      <AmbientParticles />
+      <TentacleBackground />
 
       <motion.div
         className="relative z-10 flex max-w-5xl flex-col items-center text-center"
