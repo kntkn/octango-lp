@@ -4,6 +4,7 @@ import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import SuckerTimeline from "@/components/SuckerTimeline";
 import DeepSeaBackground from "@/components/DeepSeaBackground";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -221,6 +222,71 @@ export default function Home() {
             { time: "20:25", label: "Networking" },
           ]}
         />
+      </section>
+
+      {/* ─── VENUE ─── */}
+      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-20">
+        <p className="text-xs font-medium tracking-[0.3em] text-accent">
+          VENUE
+        </p>
+        <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
+          会場
+        </h2>
+
+        {/* Venue photos */}
+        <div className="mt-10 grid gap-3 sm:grid-cols-2">
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <Image
+              src="/venue/lounge.jpg"
+              alt="inspired.Lab ラウンジ"
+              fill
+              className="object-cover opacity-80 transition-opacity duration-300 hover:opacity-100"
+              sizes="(max-width: 640px) 100vw, 50vw"
+            />
+          </div>
+          <div className="relative aspect-[4/3] overflow-hidden">
+            <Image
+              src="/venue/space.jpg"
+              alt="inspired.Lab デザインシンキングスペース"
+              fill
+              className="object-cover opacity-80 transition-opacity duration-300 hover:opacity-100"
+              sizes="(max-width: 640px) 100vw, 50vw"
+            />
+          </div>
+        </div>
+
+        {/* Venue info */}
+        <div className="mt-8 space-y-4">
+          <div>
+            <p className="font-sans text-lg font-bold text-text">
+              Inspired.Lab
+            </p>
+            <p className="mt-1 font-sans text-sm text-text/60">
+              三菱地所 &times; SAP Japan
+            </p>
+          </div>
+          <div className="space-y-2 text-sm text-text/70">
+            <p>〒100-0004 東京都千代田区大手町1-6-1 大手町ビル 6F</p>
+            <p>
+              東京メトロ「大手町駅」直結（丸ノ内線・千代田線・半蔵門線・東西線・都営三田線）
+            </p>
+            <p className="text-text/50">出口 C7 / E2 → 東側エレベーターで6Fへ</p>
+          </div>
+        </div>
+
+        {/* Google Maps embed */}
+        <div className="mt-8 overflow-hidden border border-dim/40">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.4!2d139.762!3d35.687!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188c0d02590001%3A0x7d1d4fb09cb6e43b!2sInspired.Lab!5e0!3m2!1sja!2sjp!4v1700000000000!5m2!1sja!2sjp"
+            width="100%"
+            height="300"
+            style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.3) brightness(0.7)" }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Inspired.Lab 地図"
+          />
+        </div>
       </section>
 
       {/* ─── REGISTER ─── */}
