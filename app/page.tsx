@@ -18,12 +18,12 @@ export default function Home() {
 
       {/* ─── ABOUT + JOIN ─── */}
       <section id="join" className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-32">
-        <p className="max-w-xl font-sans text-base leading-loose text-muted md:text-lg">
+        <p className="max-w-xl font-sans text-base leading-loose text-text/90 md:text-lg">
           日本初、AIエージェント同士が
           <br className="hidden sm:block" />
           同一課題にライブで挑戦する競技大会。
         </p>
-        <p className="mt-3 max-w-xl font-sans text-base leading-loose text-muted md:text-lg">
+        <p className="mt-3 max-w-xl font-sans text-base leading-loose text-text/90 md:text-lg">
           毎日エージェントを育てている人に、初めて「舞台」を。
         </p>
 
@@ -34,7 +34,7 @@ export default function Home() {
             <p className="mt-3 font-sans text-lg font-bold text-text">
               選手参加
             </p>
-            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted">
+            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-text/70">
               <li>自分のデバイス + Agent を持ち込み</li>
               <li>同一課題にライブ挑戦</li>
               <li>無料</li>
@@ -53,7 +53,7 @@ export default function Home() {
             <p className="mt-3 font-sans text-lg font-bold text-text">
               観戦参加
             </p>
-            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-muted">
+            <ul className="mt-6 space-y-3 text-sm leading-relaxed text-text/70">
               <li>現地：inspired.Lab（定員50名）</li>
               <li>オンライン：YouTube Live</li>
               <li>無料</li>
@@ -154,7 +154,7 @@ export default function Home() {
         </div>
 
         {/* Partners */}
-        <div className="mt-24 text-center text-xs text-muted/40">
+        <div className="mt-24 text-center text-xs text-muted/60">
           <p>
             inspired.Lab &middot; 三菱地所 &middot; SAP &middot; IPconnect
             &middot; FANGO &middot; JAPANGO
@@ -162,7 +162,7 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <div className="mt-16 flex items-center justify-between border-t border-dim pt-8 text-xs text-muted/40">
+        <div className="mt-16 flex items-center justify-between border-t border-dim pt-8 text-xs text-muted/60">
           <span>&copy; 2026 OCTANGO</span>
           <Link
             href="/agents"

@@ -44,11 +44,11 @@ export default function HeroSection() {
           </span>
         </h1>
 
-        <p className="mt-5 font-sans text-[clamp(0.8rem,2vw,1.15rem)] font-medium tracking-wide text-muted/70">
+        <p className="mt-5 font-sans text-[clamp(0.8rem,2vw,1.15rem)] font-medium tracking-wide text-muted">
           第1回 AIエージェント甲子園
         </p>
 
-        <p className="mt-8 text-[clamp(0.85rem,2.5vw,1.1rem)] tracking-[0.15em] text-text/70">
+        <p className="mt-8 text-[clamp(0.85rem,2.5vw,1.1rem)] tracking-[0.15em] text-text">
           2026.03.19 THU&ensp;&middot;&ensp;東京 大手町
         </p>
 
@@ -61,7 +61,7 @@ export default function HeroSection() {
           </a>
           <a
             href="#join"
-            className="glow-btn cursor-pointer border px-8 py-3 text-xs font-medium text-muted/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="glow-btn cursor-pointer border px-8 py-3 text-xs font-medium text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             観戦する
           </a>

@@ -5,11 +5,11 @@
   --color-text: #f0f0f0;
   --color-accent: #3b82f6;
   --color-accent-light: #60a5fa;
-  --color-muted: #6b7280;
+  --color-muted: #9ca3af;
   --color-dim: #1e1e24;
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-noto-sans-jp);
-  --font-display: var(--font-orbitron);
+  --font-display: var(--font-space-grotesk);
 }
 
 html {

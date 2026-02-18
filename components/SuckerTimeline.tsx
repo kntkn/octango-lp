@@ -55,7 +55,7 @@ export default function SuckerTimeline({ items }: { items: TimelineItem[] }) {
               <span className="font-mono text-xs tabular-nums text-accent/70 sm:text-sm">
                 {item.time}
               </span>
-              <span className="font-sans text-sm text-muted transition-colors duration-300 group-hover:text-text sm:text-base">
+              <span className="font-sans text-sm text-text/80 transition-colors duration-300 group-hover:text-text sm:text-base">
                 {item.label}
               </span>
             </div>

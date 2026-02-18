@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Noto_Sans_JP, Orbitron } from "next/font/google";
+import { JetBrains_Mono, Noto_Sans_JP, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -14,10 +14,10 @@ const notoSansJP = Noto_Sans_JP({
   weight: ["400", "700", "900"],
 });
 
-const orbitron = Orbitron({
-  variable: "--font-orbitron",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["700", "900"],
+  weight: ["700"],
 });
 
 export const metadata: Metadata = {
@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${jetbrainsMono.variable} ${notoSansJP.variable} ${orbitron.variable} antialiased`}>
+      <body className={`${jetbrainsMono.variable} ${notoSansJP.variable} ${spaceGrotesk.variable} antialiased`}>
         {children}
       </body>
     </html>
