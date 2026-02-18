@@ -52,18 +52,12 @@ export default function HeroSection() {
           2026.03.19 THU&ensp;&middot;&ensp;東京 大手町
         </p>
 
-        <div className="mt-14 flex gap-5">
+        <div className="mt-14">
           <a
-            href="#join"
-            className="glow-btn cursor-pointer border px-8 py-3 text-xs font-medium text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            href="#register"
+            className="glow-cta inline-block cursor-pointer border bg-cta/10 px-12 py-4 text-sm font-bold tracking-wide text-cta-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
           >
-            出場する
-          </a>
-          <a
-            href="#join"
-            className="glow-btn cursor-pointer border px-8 py-3 text-xs font-medium text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-          >
-            観戦する
+            出場する（無料）
           </a>
         </div>
       </motion.div>
