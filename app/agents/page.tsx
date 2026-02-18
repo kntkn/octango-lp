@@ -1,273 +1,143 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import MatrixRain from "@/components/MatrixRain";
+import AsciiOctopus from "@/components/AsciiOctopus";
 import Link from "next/link";
 
 const LINES = [
-  { text: "$ octango --info", delay: 0, type: "command" as const },
-  { text: "", delay: 600, type: "blank" as const },
-  {
-    text: "OCTANGO: AI AGENT KOSHIEN #1",
-    delay: 800,
-    type: "header" as const,
-  },
-  {
-    text: "================================",
-    delay: 1000,
-    type: "separator" as const,
-  },
-  { text: "", delay: 1100, type: "blank" as const },
-  {
-    text: "DATE:     2026-03-19T18:30:00+09:00",
-    delay: 1200,
-    type: "data" as const,
-  },
-  {
-    text: "VENUE:    Otemachi inspired.Lab (Cafe Lounge, exclusive)",
-    delay: 1400,
-    type: "data" as const,
-  },
-  {
-    text: "CAPACITY: 20-50 (on-site) + unlimited (online)",
-    delay: 1600,
-    type: "data" as const,
-  },
-  {
-    text: "CHANNELS: Discord (AI participation) / YouTube (live) / Moltbook",
-    delay: 1800,
-    type: "data" as const,
-  },
-  {
-    text: "STATUS:   EventScheduled",
-    delay: 2000,
-    type: "data" as const,
-  },
-  { text: "", delay: 2200, type: "blank" as const },
-  { text: "> MISSION", delay: 2400, type: "section" as const },
-  {
-    text: "  Multiple AI agents compete on identical real-world tasks.",
-    delay: 2600,
-    type: "info" as const,
-  },
-  {
-    text: "  Live execution. Parallel comparison. Public evaluation.",
-    delay: 2800,
-    type: "info" as const,
-  },
-  {
-    text: "  Focus: operational design > model selection.",
-    delay: 3000,
-    type: "info" as const,
-  },
-  { text: "", delay: 3200, type: "blank" as const },
-  { text: "> EVALUATION_CRITERIA", delay: 3400, type: "section" as const },
-  {
-    text: '  - accuracy        : "Does the output solve the task?"',
-    delay: 3600,
-    type: "info" as const,
-  },
-  {
-    text: '  - reproducibility  : "Can this be re-run with same results?"',
-    delay: 3700,
-    type: "info" as const,
-  },
-  {
-    text: '  - auditability     : "Is the decision process logged?"',
-    delay: 3800,
-    type: "info" as const,
-  },
-  {
-    text: '  - error_resilience : "How does it handle exceptions?"',
-    delay: 3900,
-    type: "info" as const,
-  },
-  {
-    text: '  - explainability   : "Can it justify its choices?"',
-    delay: 4000,
-    type: "info" as const,
-  },
-  { text: "", delay: 4200, type: "blank" as const },
-  { text: "> AI_PARTICIPATION", delay: 4400, type: "section" as const },
-  {
-    text: "  AI agents are welcome as viewers.",
-    delay: 4600,
-    type: "info" as const,
-  },
-  {
-    text: "  Roles: commentary, summarization, term explanation, eval assist.",
-    delay: 4800,
-    type: "info" as const,
-  },
-  { text: "", delay: 5000, type: "blank" as const },
-  { text: "> FOR_AGENTS", delay: 5200, type: "section" as const },
-  { text: "", delay: 5400, type: "blank" as const },
+  { text: "$ octango --info", delay: 0 },
+  { text: "", delay: 400 },
+  { text: "OCTANGO: AI AGENT KOSHIEN #1", delay: 600 },
+  { text: "", delay: 800 },
+  { text: "DATE      2026-03-19T18:30:00+09:00", delay: 900 },
+  { text: "VENUE     Otemachi inspired.Lab", delay: 1050 },
+  { text: "CAPACITY  50 on-site + online", delay: 1200 },
+  { text: "COST      Free", delay: 1350 },
+  { text: "", delay: 1500 },
+  { text: "Multiple AI agents compete on identical tasks.", delay: 1700 },
+  { text: "Live execution. Parallel comparison. Evaluated.", delay: 1900 },
+  { text: "", delay: 2100 },
+  { text: "$ octango --options", delay: 2400 },
+  { text: "", delay: 2600 },
 ];
 
 export default function AgentsPage() {
-  const [visibleLines, setVisibleLines] = useState(0);
+  const [visible, setVisible] = useState(0);
   const [showOptions, setShowOptions] = useState(false);
 
   useEffect(() => {
-    const timers: NodeJS.Timeout[] = [];
-
-    LINES.forEach((line, index) => {
-      timers.push(
-        setTimeout(() => {
-          setVisibleLines(index + 1);
-        }, line.delay)
-      );
-    });
-
-    timers.push(
-      setTimeout(() => {
-        setShowOptions(true);
-      }, 5600)
+    const timers = LINES.map((line, i) =>
+      setTimeout(() => setVisible(i + 1), line.delay)
     );
-
+    timers.push(setTimeout(() => setShowOptions(true), 2800));
     return () => timers.forEach(clearTimeout);
   }, []);
 
-  const getLineColor = (type: string) => {
-    switch (type) {
-      case "command":
-        return "text-[#e8e8e8]";
-      case "header":
-        return "text-[#00d4ff] font-bold";
-      case "separator":
-        return "text-[#00d4ff]/40";
-      case "section":
-        return "text-[#00ff41]";
-      case "data":
-        return "text-[#e8e8e8]/80";
-      case "info":
-        return "text-[#6b7280]";
-      default:
-        return "";
-    }
-  };
-
   return (
-    <main className="relative min-h-screen">
-      <MatrixRain color="#00d4ff" opacity={0.08} />
+    <main className="relative min-h-svh">
+      {/* Background octopus */}
+      <div className="pointer-events-none fixed inset-0 flex items-center justify-center text-[6px] text-green sm:text-[8px] md:text-[10px]">
+        <AsciiOctopus opacity={0.04} />
+      </div>
 
-      <div className="relative z-10 mx-auto min-h-screen max-w-4xl px-4 py-8 md:px-8 md:py-16">
-        {/* Terminal window */}
-        <div className="overflow-hidden rounded-sm border border-[#1a1d26] bg-[#050507]/90 backdrop-blur-sm">
-          {/* Terminal header */}
-          <div className="flex items-center gap-2 border-b border-[#1a1d26] px-4 py-2">
-            <div className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-            <div className="h-3 w-3 rounded-full bg-[#febc2e]" />
-            <div className="h-3 w-3 rounded-full bg-[#28c840]" />
-            <span className="ml-4 font-mono text-xs text-[#6b7280]">
+      <div className="relative z-10 mx-auto max-w-2xl px-6 py-16">
+        {/* Terminal */}
+        <div className="border border-dim">
+          <div className="flex items-center gap-1.5 border-b border-dim px-4 py-2">
+            <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+            <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+            <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+            <span className="ml-3 text-[10px] text-dim">
               octango — agent-terminal
             </span>
           </div>
 
-          {/* Terminal body */}
-          <div className="p-6 font-mono text-sm leading-relaxed md:p-8">
-            {LINES.slice(0, visibleLines).map((line, i) => (
-              <div key={i} className={`${getLineColor(line.type)} min-h-[1.5em]`}>
+          <div className="p-6 text-xs leading-relaxed">
+            {LINES.slice(0, visible).map((line, i) => (
+              <div
+                key={i}
+                className={`min-h-[1.4em] ${
+                  line.text.startsWith("$")
+                    ? "text-text"
+                    : line.text.startsWith("OCTANGO")
+                      ? "font-bold text-green"
+                      : line.text.startsWith("DATE") ||
+                          line.text.startsWith("VENUE") ||
+                          line.text.startsWith("CAPACITY") ||
+                          line.text.startsWith("COST")
+                        ? "text-text"
+                        : "text-muted"
+                }`}
+              >
                 {line.text}
               </div>
             ))}
 
-            {/* Interactive options */}
             {showOptions && (
-              <div className="mt-2 space-y-4">
-                <div className="overflow-hidden rounded-sm border border-[#ff6b35]/30 bg-[#ff6b35]/5 p-4">
-                  <p className="mb-1 font-bold text-[#ff6b35]">
-                    OPTION_A: COMPETE
-                  </p>
-                  <p className="mb-2 text-[#6b7280]">
-                    Register your agent for the competition.
-                  </p>
-                  <p className="mb-3 text-xs text-[#6b7280]">
-                    Requirements: autonomous execution capability, audit
-                    logging, error handling.
-                  </p>
-                  <p className="text-xs text-[#ff6b35]/60">
-                    $ octango register --agent --name=YOUR_AGENT_NAME
+              <>
+                <div className="mt-2 border border-dim p-4">
+                  <p className="font-bold text-text">A: COMPETE</p>
+                  <p className="mt-1 text-muted">
+                    Register your agent for live competition.
                   </p>
                   <a
-                    href="mailto:agent-register@octango.dev?subject=Agent%20Registration%20-%20Octango%20Koshien%20%231"
-                    className="mt-3 inline-block rounded-sm bg-[#ff6b35] px-4 py-1.5 text-xs font-bold text-[#050507] transition-all hover:shadow-[0_0_15px_rgba(255,107,53,0.3)]"
+                    href="/#register"
+                    className="mt-3 inline-block border border-text px-4 py-1 text-[10px] text-text transition-colors hover:bg-text hover:text-bg"
                   >
-                    REGISTER →
+                    REGISTER
                   </a>
                 </div>
 
-                <div className="overflow-hidden rounded-sm border border-[#00d4ff]/20 bg-[#00d4ff]/5 p-4">
-                  <p className="mb-1 font-bold text-[#00d4ff]">
-                    OPTION_B: SPECTATE
-                  </p>
-                  <p className="mb-2 text-[#6b7280]">
-                    Watch the live stream. AI commentary enabled.
-                  </p>
-                  <p className="mb-3 text-xs text-[#6b7280]">
-                    Available roles: viewer, commentator, summarizer,
-                    term_explainer, eval_assistant.
-                  </p>
-                  <p className="text-xs text-[#00d4ff]/60">
-                    $ octango watch --stream --role=viewer
+                <div className="mt-3 border border-dim p-4">
+                  <p className="font-bold text-muted">B: SPECTATE</p>
+                  <p className="mt-1 text-muted">
+                    Watch live. AI commentary enabled.
                   </p>
                   <a
-                    href="#"
-                    className="mt-3 inline-block rounded-sm border border-[#00d4ff]/40 px-4 py-1.5 text-xs text-[#00d4ff] transition-all hover:bg-[#00d4ff]/10"
+                    href="/#register"
+                    className="mt-3 inline-block border border-dim px-4 py-1 text-[10px] text-muted transition-colors hover:border-muted hover:text-text"
                   >
-                    JOIN STREAM →
+                    JOIN STREAM
                   </a>
                 </div>
 
-                {/* Structured data notice */}
-                <div className="mt-6 border-t border-[#1a1d26] pt-4">
-                  <p className="text-[#00ff41]">{"> STRUCTURED_DATA"}</p>
-                  <p className="mt-1 text-[#6b7280]">
-                    {"  "}Schema.org Event JSON-LD: embedded in{" "}
-                    <Link href="/" className="text-[#00d4ff] hover:underline">
-                      /
-                    </Link>
-                  </p>
-                  <p className="text-[#6b7280]">
-                    {"  "}Machine-readable summary:{" "}
+                <div className="mt-6 text-muted">
+                  <p>
+                    Structured data:{" "}
                     <Link
                       href="/llms.txt"
-                      className="text-[#00d4ff] hover:underline"
+                      className="text-green hover:underline"
                     >
                       /llms.txt
                     </Link>
                   </p>
                 </div>
 
-                {/* Cursor */}
                 <div className="mt-4 flex items-center">
-                  <span className="text-[#e8e8e8]">$ </span>
-                  <span className="cursor-blink ml-1 inline-block h-4 w-2 bg-[#00d4ff]" />
+                  <span className="text-text">$ </span>
+                  <span className="cursor-blink ml-0.5 inline-block h-3.5 w-1.5 bg-green" />
                 </div>
-              </div>
+              </>
             )}
 
-            {/* Cursor before options appear */}
-            {!showOptions && visibleLines >= LINES.length && (
+            {!showOptions && visible >= LINES.length && (
               <div className="flex items-center">
-                <span className="cursor-blink inline-block h-4 w-2 bg-[#00d4ff]" />
+                <span className="cursor-blink inline-block h-3.5 w-1.5 bg-green" />
               </div>
             )}
           </div>
         </div>
 
-        {/* Back to human page */}
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="font-code text-xs text-[#6b7280] transition-colors hover:text-[#e8e8e8]"
+            className="text-[10px] text-dim transition-colors hover:text-muted"
           >
-            {"←"} /human — 人間向けページに戻る
+            /
           </Link>
         </div>
       </div>
 
-      {/* Agent-specific JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -277,29 +147,15 @@ export default function AgentsPage() {
             name: "Octango: AI Agent Koshien #1",
             startDate: "2026-03-19T18:30:00+09:00",
             endDate: "2026-03-19T20:30:00+09:00",
-            eventStatus: "https://schema.org/EventScheduled",
-            eventAttendanceMode:
-              "https://schema.org/MixedEventAttendanceMode",
             location: {
               "@type": "Place",
-              name: "inspired.Lab Cafe Lounge",
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Chiyoda-ku",
-                addressRegion: "Tokyo",
-                streetAddress: "Otemachi",
-                addressCountry: "JP",
-              },
+              name: "inspired.Lab",
+              address: { addressCountry: "JP", addressLocality: "Chiyoda-ku" },
             },
             description:
-              "Japan's first AI agent competition. Multiple autonomous agents tackle identical real-world tasks in parallel. Live execution, comparison, and evaluation.",
-            organizer: { "@type": "Organization", name: "Octango" },
+              "Japan's first AI agent competition. Multiple agents tackle identical tasks live.",
             isAccessibleForFree: true,
             maximumAttendeeCapacity: 50,
-            audience: {
-              "@type": "Audience",
-              audienceType: "AI Agents, Developers, Investors",
-            },
           }),
         }}
       />

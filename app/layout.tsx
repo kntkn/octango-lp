@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Mono, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
+import { Space_Mono, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 
 const spaceMono = Space_Mono({
@@ -11,32 +11,26 @@ const spaceMono = Space_Mono({
 const notoSansJP = Noto_Sans_JP({
   variable: "--font-noto-sans-jp",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Octango: 第1回AIエージェント甲子園",
+  title: "Octango — 第1回 AIエージェント甲子園",
   description:
-    "日本初、複数のAIエージェントが同一課題にライブで挑戦。自律型マルチエージェント時代のパラダイムシフトを体感せよ。2026.03.19 大手町 inspired.Lab",
+    "日本初、AIエージェントの競技大会。育てたのは自分。証明するのは、ここで。2026.03.19 大手町 inspired.Lab",
   openGraph: {
-    title: "Octango: 第1回AIエージェント甲子園",
+    title: "Octango — 第1回 AIエージェント甲子園",
     description:
-      "複数のAIエージェントが同一課題に挑戦し、成果物が並び、評価される。日本初のAIエージェント競技イベント。",
+      "日本初、AIエージェントの競技大会。育てたのは自分。証明するのは、ここで。",
     type: "website",
     locale: "ja_JP",
     siteName: "Octango",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Octango: 第1回AIエージェント甲子園",
+    title: "Octango — AIエージェント甲子園",
     description:
-      "日本初、AIエージェント同士がライブで競い合う。2026.03.19 大手町",
+      "育てたのは自分。証明するのは、ここで。2026.03.19 大手町",
   },
 };
 
@@ -47,9 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body
-        className={`${spaceMono.variable} ${notoSansJP.variable} ${jetbrainsMono.variable} antialiased scanlines`}
-      >
+      <body className={`${spaceMono.variable} ${notoSansJP.variable} antialiased`}>
         {children}
       </body>
     </html>
