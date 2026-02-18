@@ -11,7 +11,7 @@
   --color-dim: #1e1e24;
   --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-noto-sans-jp);
-  --font-display: var(--font-syne);
+  --font-display: var(--font-plus-jakarta);
 }
 
 html {

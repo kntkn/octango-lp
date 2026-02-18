@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Noto_Sans_JP, Syne } from "next/font/google";
+import { JetBrains_Mono, Noto_Sans_JP, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -14,8 +14,8 @@ const notoSansJP = Noto_Sans_JP({
   weight: ["400", "700", "900"],
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
   subsets: ["latin"],
   weight: ["700", "800"],
 });
@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${jetbrainsMono.variable} ${notoSansJP.variable} ${syne.variable} antialiased`}>
+      <body className={`${jetbrainsMono.variable} ${notoSansJP.variable} ${plusJakartaSans.variable} antialiased`}>
         {children}
       </body>
 
