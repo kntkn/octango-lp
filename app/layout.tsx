@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Noto_Sans_JP, Space_Grotesk } from "next/font/google";
+import { JetBrains_Mono, Noto_Sans_JP, Syne } from "next/font/google";
 import "./globals.css";
 
 const jetbrainsMono = JetBrains_Mono({
@@ -14,10 +14,10 @@ const notoSansJP = Noto_Sans_JP({
   weight: ["400", "700", "900"],
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["700", "800"],
 });
 
 export const metadata: Metadata = {
@@ -47,9 +47,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${jetbrainsMono.variable} ${notoSansJP.variable} ${spaceGrotesk.variable} antialiased`}>
+      <body className={`${jetbrainsMono.variable} ${notoSansJP.variable} ${syne.variable} antialiased`}>
         {children}
       </body>
+
     </html>
   );
 }

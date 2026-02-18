@@ -126,12 +126,12 @@ export default function Home() {
           <p className="font-sans text-sm text-text/70">
             <span className="text-accent">*</span>{" "}
             Mac Miniをお持ちでない方も参加可能です。
-            <a
-              href="mailto:hello@octango.dev?subject=Mac Mini貸出について"
+            <Link
+              href="/contact"
               className="ml-1 border-b border-accent/30 text-accent transition-colors duration-200 hover:border-accent hover:text-accent-light"
             >
               こちらからお問い合わせください
-            </a>
+            </Link>
           </p>
         </div>
       </section>
