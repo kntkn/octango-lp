@@ -9,7 +9,7 @@ const TentacleAscii = dynamic(() => import("./TentacleAscii"), {
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-svh items-center justify-center overflow-hidden px-6">
+    <section className="relative flex min-h-svh items-end justify-center overflow-hidden px-6 pb-[12vh] sm:items-center sm:pb-0 sm:pt-[6vh]">
       {/* Radial glow behind text */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -31,14 +31,15 @@ export default function HeroSection() {
         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
         <h1
-          className="font-display text-[clamp(3.2rem,11vw,8.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text"
+          className="font-display text-[clamp(2.6rem,8vw,6.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text"
           style={{
             textShadow:
               "0 0 40px rgba(59,130,246,0.12), 0 0 80px rgba(59,130,246,0.04)",
           }}
         >
           OCTANGO
-          <span className="ml-[0.15em] text-[0.45em] font-bold tracking-[0.12em] text-accent-light align-[0.15em]">
+          <br className="sm:hidden" />
+          <span className="text-[0.38em] font-bold tracking-[0.25em] text-accent-light sm:ml-[0.15em] sm:text-[0.4em] sm:tracking-[0.12em] sm:align-[0.15em]">
             2026
           </span>
         </h1>
