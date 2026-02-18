@@ -2,12 +2,12 @@
 
 @theme inline {
   --color-bg: #07070a;
-  --color-text: #e0e0e0;
+  --color-text: #f0f0f0;
   --color-accent: #3b82f6;
   --color-accent-light: #60a5fa;
-  --color-muted: #525252;
-  --color-dim: #262626;
-  --font-mono: var(--font-space-mono);
+  --color-muted: #6b7280;
+  --color-dim: #1e1e24;
+  --font-mono: var(--font-jetbrains-mono);
   --font-sans: var(--font-noto-sans-jp);
 }
 
