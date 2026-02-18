@@ -9,23 +9,22 @@ interface Particle {
   vx: number;
   vy: number;
   size: number;
-  opacity: number;
   baseOpacity: number;
   pulseSpeed: number;
   pulseOffset: number;
 }
 
-const PARTICLE_COUNT = 120;
+const PARTICLE_COUNT = 80;
+const CONNECTION_DIST = 150;
 
 function createParticles(w: number, h: number): Particle[] {
   return Array.from({ length: PARTICLE_COUNT }, () => ({
     x: Math.random() * w,
     y: Math.random() * h,
-    vx: (Math.random() - 0.5) * 0.15,
-    vy: (Math.random() - 0.5) * 0.15,
-    size: 0.5 + Math.random() * 1.5,
-    opacity: 0,
-    baseOpacity: 0.15 + Math.random() * 0.4,
+    vx: (Math.random() - 0.5) * 0.2,
+    vy: (Math.random() - 0.5) * 0.2,
+    size: 1 + Math.random() * 1.5,
+    baseOpacity: 0.25 + Math.random() * 0.45,
     pulseSpeed: 0.3 + Math.random() * 0.7,
     pulseOffset: Math.random() * Math.PI * 2,
   }));
@@ -93,34 +92,51 @@ export default function AmbientParticles({
     function draw(time: number) {
       if (startTime < 0) startTime = time;
       const elapsed = (time - startTime) / 1000;
-
-      // Fade-in over 2 seconds
-      const fadeIn = Math.min(elapsed / 2, 1);
+      const fadeIn = Math.min(elapsed / 2.5, 1);
 
       ctx!.clearRect(0, 0, w, h);
 
-      for (const p of particles) {
-        if (!reducedMotion) {
+      // Update positions
+      if (!reducedMotion) {
+        for (const p of particles) {
           p.x += p.vx;
           p.y += p.vy;
-
-          // Wrap around edges
-          if (p.x < -10) p.x = w + 10;
-          if (p.x > w + 10) p.x = -10;
-          if (p.y < -10) p.y = h + 10;
-          if (p.y > h + 10) p.y = -10;
+          if (p.x < -20) p.x = w + 20;
+          if (p.x > w + 20) p.x = -20;
+          if (p.y < -20) p.y = h + 20;
+          if (p.y > h + 20) p.y = -20;
         }
+      }
 
-        // Subtle pulse
+      // Draw connection lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < CONNECTION_DIST) {
+            const lineOpacity = (1 - dist / CONNECTION_DIST) * 0.12 * fadeIn;
+            ctx!.beginPath();
+            ctx!.moveTo(particles[i].x, particles[i].y);
+            ctx!.lineTo(particles[j].x, particles[j].y);
+            ctx!.strokeStyle = `rgba(96, 165, 250, ${lineOpacity})`;
+            ctx!.lineWidth = 0.5;
+            ctx!.stroke();
+          }
+        }
+      }
+
+      // Draw particles
+      for (const p of particles) {
         const pulse = reducedMotion
           ? 1
           : 0.7 + 0.3 * Math.sin(elapsed * p.pulseSpeed + p.pulseOffset);
-
-        p.opacity = p.baseOpacity * pulse * fadeIn;
+        const opacity = p.baseOpacity * pulse * fadeIn;
 
         ctx!.beginPath();
         ctx!.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx!.fillStyle = `rgba(96, 165, 250, ${p.opacity})`;
+        ctx!.fillStyle = `rgba(96, 165, 250, ${opacity})`;
         ctx!.fill();
       }
 

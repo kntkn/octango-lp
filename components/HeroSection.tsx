@@ -10,6 +10,18 @@ const AmbientParticles = dynamic(() => import("./AmbientParticles"), {
 export default function HeroSection() {
   return (
     <section className="relative flex min-h-svh items-center justify-center overflow-hidden px-6">
+      {/* Radial glow behind text */}
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        style={{
+          width: "min(900px, 80vw)",
+          height: "min(700px, 70vh)",
+          background:
+            "radial-gradient(ellipse at center, rgba(59,130,246,0.08) 0%, rgba(59,130,246,0.03) 40%, transparent 70%)",
+        }}
+        aria-hidden="true"
+      />
+
       <AmbientParticles />
 
       <motion.div
