@@ -1,45 +1,11 @@
-import AsciiOctopus from "@/components/AsciiOctopus";
+import HeroSection from "@/components/HeroSection";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main>
-      {/* ─── HERO: single viewport ─── */}
-      <section className="flex min-h-svh flex-col items-center justify-center px-4">
-        <div className="text-green text-[8px] leading-[1.15] sm:text-[10px] md:text-[13px] lg:text-[14px]">
-          <AsciiOctopus />
-        </div>
-
-        <div className="mt-8 text-center">
-          <h1 className="text-[10px] tracking-[0.5em] text-muted sm:text-xs">
-            O C T A N G O
-          </h1>
-          <p className="mt-3 font-sans text-lg font-bold tracking-tight text-text sm:text-xl md:text-2xl">
-            第1回 AIエージェント甲子園
-          </p>
-          <p className="mt-4 font-sans text-sm text-muted">
-            育てたのは自分。証明するのは、ここで。
-          </p>
-          <p className="mt-4 text-[10px] tracking-widest text-dim sm:text-xs">
-            2026.03.19 THU &nbsp;&middot;&nbsp; 大手町 inspired.Lab
-          </p>
-        </div>
-
-        <div className="mt-10 flex gap-4">
-          <a
-            href="#join"
-            className="border border-text px-6 py-2 text-xs text-text transition-colors hover:bg-text hover:text-bg"
-          >
-            出場する
-          </a>
-          <a
-            href="#join"
-            className="border border-dim px-6 py-2 text-xs text-muted transition-colors hover:border-muted hover:text-text"
-          >
-            観戦する
-          </a>
-        </div>
-      </section>
+      {/* ─── HERO: single viewport, 2-col on desktop ─── */}
+      <HeroSection />
 
       {/* ─── ABOUT + JOIN ─── */}
       <section id="join" className="mx-auto max-w-2xl px-6 py-32">
