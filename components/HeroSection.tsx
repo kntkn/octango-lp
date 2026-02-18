@@ -30,32 +30,37 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <p className="text-[10px] font-medium uppercase tracking-[0.4em] text-muted sm:text-xs">
-          O C T A N G O
-        </p>
-
-        <h1 className="mt-8 text-balance font-sans text-[clamp(2rem,6vw,4.5rem)] font-black leading-[1.1] tracking-tight text-text">
-          第1回 AIエージェント甲子園
+        <h1
+          className="font-display text-[clamp(3.2rem,11vw,8.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text"
+          style={{
+            textShadow:
+              "0 0 40px rgba(59,130,246,0.12), 0 0 80px rgba(59,130,246,0.04)",
+          }}
+        >
+          OCTANGO
+          <span className="ml-[0.15em] text-[0.45em] font-bold tracking-[0.12em] text-accent-light align-[0.15em]">
+            2026
+          </span>
         </h1>
 
-        <p className="mt-8 text-pretty font-sans text-base leading-relaxed text-muted md:text-lg">
-          育てたのは自分。証明するのは、ここで。
+        <p className="mt-5 font-sans text-[clamp(0.8rem,2vw,1.15rem)] font-medium tracking-wide text-muted/70">
+          第1回 AIエージェント甲子園
         </p>
 
-        <p className="mt-4 text-xs text-muted/60 sm:text-sm">
-          2026.03.19 THU&ensp;&middot;&ensp;大手町 inspired.Lab
+        <p className="mt-8 text-[clamp(0.85rem,2.5vw,1.1rem)] tracking-[0.15em] text-text/70">
+          2026.03.19 THU&ensp;&middot;&ensp;東京 大手町
         </p>
 
-        <div className="mt-14 flex gap-4">
+        <div className="mt-14 flex gap-5">
           <a
             href="#join"
-            className="cursor-pointer border border-text px-8 py-3 text-xs font-medium text-text transition-colors duration-200 hover:bg-text hover:text-bg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="glow-btn cursor-pointer border px-8 py-3 text-xs font-medium text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             出場する
           </a>
           <a
             href="#join"
-            className="cursor-pointer border border-dim px-8 py-3 text-xs font-medium text-muted transition-colors duration-200 hover:border-muted hover:text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            className="glow-btn cursor-pointer border px-8 py-3 text-xs font-medium text-muted/80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
           >
             観戦する
           </a>

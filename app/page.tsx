@@ -22,7 +22,7 @@ export default function Home() {
 
         <div className="mt-20 grid gap-4 sm:grid-cols-2">
           {/* Compete */}
-          <div className="bg-dim/40 p-8 transition-colors duration-200 hover:bg-dim/60">
+          <div className="glow-subtle border border-transparent bg-dim/40 p-8 transition-colors duration-200 hover:bg-dim/60">
             <p className="text-xs font-medium text-accent">COMPETE</p>
             <p className="mt-3 font-sans text-lg font-bold text-text">
               選手参加
@@ -41,7 +41,7 @@ export default function Home() {
           </div>
 
           {/* Spectate */}
-          <div className="bg-dim/40 p-8 transition-colors duration-200 hover:bg-dim/60">
+          <div className="glow-subtle border border-transparent bg-dim/40 p-8 transition-colors duration-200 hover:bg-dim/60">
             <p className="text-xs font-medium text-muted">SPECTATE</p>
             <p className="mt-3 font-sans text-lg font-bold text-text">
               観戦参加
@@ -84,7 +84,7 @@ export default function Home() {
         </div>
 
         {/* Register form */}
-        <div className="mt-24 bg-dim/40 p-10">
+        <div className="glow-subtle mt-24 border border-transparent bg-dim/40 p-10">
           <p className="text-xs font-medium text-accent">REGISTER</p>
           <div className="mt-8 space-y-6">
             <div>
@@ -147,7 +147,7 @@ export default function Home() {
             </div>
             <button
               type="button"
-              className="mt-6 cursor-pointer bg-accent px-8 py-3 text-sm font-medium text-white transition-opacity duration-200 hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+              className="glow-btn mt-6 cursor-pointer border bg-accent/10 px-8 py-3 text-sm font-medium text-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             >
               Submit
             </button>
