@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AsciiOctopus from "@/components/AsciiOctopus";
 import Link from "next/link";
 
 const LINES = [
@@ -35,18 +34,13 @@ export default function AgentsPage() {
 
   return (
     <main className="relative min-h-svh">
-      {/* Background octopus */}
-      <div className="pointer-events-none fixed inset-0 flex items-center justify-center text-[6px] text-green sm:text-[8px] md:text-[10px]">
-        <AsciiOctopus opacity={0.04} />
-      </div>
-
       <div className="relative z-10 mx-auto max-w-2xl px-6 py-16">
         {/* Terminal */}
         <div className="border border-dim">
           <div className="flex items-center gap-1.5 border-b border-dim px-4 py-2">
-            <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-            <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-            <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+            <div className="size-2.5 rounded-full bg-[#ff5f57]" />
+            <div className="size-2.5 rounded-full bg-[#febc2e]" />
+            <div className="size-2.5 rounded-full bg-[#28c840]" />
             <span className="ml-3 text-[10px] text-dim">
               octango — agent-terminal
             </span>
@@ -60,7 +54,7 @@ export default function AgentsPage() {
                   line.text.startsWith("$")
                     ? "text-text"
                     : line.text.startsWith("OCTANGO")
-                      ? "font-bold text-green"
+                      ? "font-bold text-accent"
                       : line.text.startsWith("DATE") ||
                           line.text.startsWith("VENUE") ||
                           line.text.startsWith("CAPACITY") ||
@@ -106,7 +100,7 @@ export default function AgentsPage() {
                     Structured data:{" "}
                     <Link
                       href="/llms.txt"
-                      className="text-green hover:underline"
+                      className="text-accent-light hover:underline"
                     >
                       /llms.txt
                     </Link>
@@ -115,14 +109,14 @@ export default function AgentsPage() {
 
                 <div className="mt-4 flex items-center">
                   <span className="text-text">$ </span>
-                  <span className="cursor-blink ml-0.5 inline-block h-3.5 w-1.5 bg-green" />
+                  <span className="cursor-blink ml-0.5 inline-block h-3.5 w-1.5 bg-accent" />
                 </div>
               </>
             )}
 
             {!showOptions && visible >= LINES.length && (
               <div className="flex items-center">
-                <span className="cursor-blink inline-block h-3.5 w-1.5 bg-green" />
+                <span className="cursor-blink inline-block h-3.5 w-1.5 bg-accent" />
               </div>
             )}
           </div>

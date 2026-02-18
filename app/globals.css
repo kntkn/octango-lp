@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg: #050507;
+  --color-bg: #07070a;
   --color-text: #e0e0e0;
-  --color-green: #00ff41;
-  --color-muted: #444;
-  --color-dim: #222;
+  --color-accent: #3b82f6;
+  --color-accent-light: #60a5fa;
+  --color-muted: #525252;
+  --color-dim: #262626;
   --font-mono: var(--font-space-mono);
   --font-sans: var(--font-noto-sans-jp);
 }
@@ -21,8 +22,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-green);
-  color: var(--color-bg);
+  background: var(--color-accent);
+  color: white;
 }
 
 @keyframes blink {

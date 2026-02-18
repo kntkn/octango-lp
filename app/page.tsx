@@ -18,7 +18,7 @@ export default function Home() {
         <div className="mt-16 grid gap-6 sm:grid-cols-2">
           {/* Compete */}
           <div className="border border-dim p-6">
-            <p className="text-xs text-green">COMPETE</p>
+            <p className="text-xs text-accent">COMPETE</p>
             <p className="mt-2 font-sans text-sm font-bold text-text">
               選手参加
             </p>
@@ -29,7 +29,7 @@ export default function Home() {
             </ul>
             <a
               href="#register"
-              className="mt-6 inline-block border-b border-text pb-0.5 text-xs text-text transition-colors hover:border-green hover:text-green"
+              className="mt-6 inline-block border-b border-text pb-0.5 text-xs text-text transition-colors hover:border-accent hover:text-accent"
             >
               エントリーする
             </a>
@@ -77,7 +77,7 @@ export default function Home() {
 
         {/* Register form */}
         <div className="mt-20 border border-dim p-8">
-          <p className="text-xs text-green">REGISTER</p>
+          <p className="text-xs text-accent">REGISTER</p>
           <div className="mt-6 space-y-4">
             <div>
               <label className="block text-[10px] uppercase tracking-widest text-muted">
@@ -85,7 +85,7 @@ export default function Home() {
               </label>
               <input
                 type="text"
-                className="mt-1 w-full border-b border-dim bg-transparent pb-2 text-sm text-text outline-none focus:border-green"
+                className="mt-1 w-full border-b border-dim bg-transparent pb-2 text-sm text-text outline-none focus:border-accent"
               />
             </div>
             <div>
@@ -94,7 +94,7 @@ export default function Home() {
               </label>
               <input
                 type="email"
-                className="mt-1 w-full border-b border-dim bg-transparent pb-2 text-sm text-text outline-none focus:border-green"
+                className="mt-1 w-full border-b border-dim bg-transparent pb-2 text-sm text-text outline-none focus:border-accent"
               />
             </div>
             <div className="flex gap-4 pt-2">
@@ -103,7 +103,7 @@ export default function Home() {
                   type="radio"
                   name="type"
                   value="compete"
-                  className="accent-green"
+                  className="accent-[#3b82f6]"
                 />
                 Compete
               </label>
@@ -112,7 +112,7 @@ export default function Home() {
                   type="radio"
                   name="type"
                   value="spectate"
-                  className="accent-green"
+                  className="accent-[#3b82f6]"
                 />
                 Spectate
               </label>
@@ -123,7 +123,7 @@ export default function Home() {
                   type="radio"
                   name="venue"
                   value="onsite"
-                  className="accent-green"
+                  className="accent-[#3b82f6]"
                 />
                 現地
               </label>
@@ -132,7 +132,7 @@ export default function Home() {
                   type="radio"
                   name="venue"
                   value="online"
-                  className="accent-green"
+                  className="accent-[#3b82f6]"
                 />
                 オンライン
               </label>
