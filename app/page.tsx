@@ -1,16 +1,23 @@
+"use client";
+
 import HeroSection from "@/components/HeroSection";
+import InkTransition from "@/components/InkTransition";
+import SuckerTimeline from "@/components/SuckerTimeline";
+import DeepSeaBackground from "@/components/DeepSeaBackground";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <main>
+    <main className="relative">
+      <DeepSeaBackground />
+
       <HeroSection />
 
-      {/* ─── ABOUT + JOIN ─── */}
-      <section id="join" className="relative mx-auto max-w-3xl px-6 py-40">
-        {/* Accent line */}
-        <div className="mx-auto mb-20 h-px w-12 bg-accent/30" />
+      {/* Ink transition: hero → content */}
+      <InkTransition />
 
+      {/* ─── ABOUT + JOIN ─── */}
+      <section id="join" className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-32">
         <p className="max-w-xl font-sans text-base leading-loose text-muted md:text-lg">
           日本初、AIエージェント同士が
           <br className="hidden sm:block" />
@@ -62,26 +69,18 @@ export default function Home() {
       </section>
 
       {/* ─── DETAILS ─── */}
-      <section id="register" className="relative mx-auto max-w-3xl px-6 pb-40">
-        {/* Accent line */}
-        <div className="mx-auto mb-20 h-px w-12 bg-accent/30" />
-
-        {/* Timeline */}
-        <div className="space-y-4 text-sm">
-          {[
-            ["18:00", "Check-in"],
-            ["18:30", "Opening"],
-            ["18:40", "Competition"],
-            ["19:35", "Judging"],
-            ["20:05", "Wrap-up"],
-            ["20:25", "Networking"],
-          ].map(([time, label]) => (
-            <div key={time} className="flex gap-8">
-              <span className="w-14 tabular-nums text-muted">{time}</span>
-              <span className="text-text">{label}</span>
-            </div>
-          ))}
-        </div>
+      <section id="register" className="relative z-10 mx-auto max-w-3xl px-6 pb-40">
+        {/* Sucker Timeline */}
+        <SuckerTimeline
+          items={[
+            { time: "18:00", label: "Check-in" },
+            { time: "18:30", label: "Opening" },
+            { time: "18:40", label: "Competition" },
+            { time: "19:35", label: "Judging" },
+            { time: "20:05", label: "Wrap-up" },
+            { time: "20:25", label: "Networking" },
+          ]}
+        />
 
         {/* Register form */}
         <div className="glow-subtle mt-24 border border-transparent bg-dim/40 p-10">
@@ -164,7 +163,7 @@ export default function Home() {
 
         {/* Footer */}
         <div className="mt-16 flex items-center justify-between border-t border-dim pt-8 text-xs text-muted/40">
-          <span>&copy; 2026 Octango</span>
+          <span>&copy; 2026 OCTANGO</span>
           <Link
             href="/agents"
             className="cursor-pointer transition-colors duration-200 hover:text-muted"
@@ -181,7 +180,7 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "第1回AIエージェント甲子園",
+            name: "OCTANGO 2026 — 第1回AIエージェント甲子園",
             alternateName: "Octango: AI Agent Koshien #1",
             startDate: "2026-03-19T18:30:00+09:00",
             endDate: "2026-03-19T20:30:00+09:00",
