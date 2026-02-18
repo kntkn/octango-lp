@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 
-const TentacleBackground = dynamic(() => import("./TentacleBackground"), {
+const TentacleAscii = dynamic(() => import("./TentacleAscii"), {
   ssr: false,
 });
 
@@ -22,7 +22,7 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      <TentacleBackground />
+      <TentacleAscii />
 
       <motion.div
         className="relative z-10 flex max-w-5xl flex-col items-center text-center"
