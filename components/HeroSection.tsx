@@ -9,7 +9,7 @@ const TentacleAscii = dynamic(() => import("./TentacleAscii"), {
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-svh items-end justify-center overflow-hidden px-6 pb-[12vh] sm:items-center sm:pb-0 sm:pt-[6vh]">
+    <section className="relative flex min-h-svh items-end justify-center px-6 pb-[12vh] sm:items-center sm:pb-0 sm:pt-[6vh]">
       {/* Radial glow behind text */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"

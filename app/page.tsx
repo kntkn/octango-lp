@@ -1,7 +1,6 @@
 "use client";
 
 import HeroSection from "@/components/HeroSection";
-import InkTransition from "@/components/InkTransition";
 import SuckerTimeline from "@/components/SuckerTimeline";
 import DeepSeaBackground from "@/components/DeepSeaBackground";
 import Link from "next/link";
@@ -12,9 +11,6 @@ export default function Home() {
       <DeepSeaBackground />
 
       <HeroSection />
-
-      {/* Ink transition: hero → content */}
-      <InkTransition />
 
       {/* ─── ABOUT + JOIN ─── */}
       <section id="join" className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-32">

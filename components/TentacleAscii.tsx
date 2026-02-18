@@ -254,6 +254,8 @@ interface Cell {
 
 /* ── Component ───────────────────────────────────────── */
 
+const BLEED_PX = 280; // how far tentacles extend below hero
+
 export default function TentacleAscii({
   className = "",
 }: {
@@ -279,15 +281,15 @@ export default function TentacleAscii({
     let cellH = 0;
     let grid: Cell[][] = [];
     let w = 0;
-    let h = 0;
+    let h = 0; // canvas pixel height (viewport + bleed)
+    let viewH = 0; // viewport height (for normalized coordinate mapping)
 
     function resize() {
-      const parent = canvas!.parentElement;
-      if (!parent) return;
-
       const dpr = Math.min(window.devicePixelRatio, 2);
-      w = parent.clientWidth;
-      h = parent.clientHeight;
+      w = window.innerWidth;
+      viewH = window.innerHeight;
+      h = viewH + BLEED_PX;
+
       canvas!.width = w * dpr;
       canvas!.height = h * dpr;
       canvas!.style.width = `${w}px`;
@@ -390,9 +392,9 @@ export default function TentacleAscii({
           const nx = len > 0 ? -tangent[1] / len : 0;
           const ny = len > 0 ? tangent[0] / len : 0;
 
-          // Pixel position of spine
+          // Pixel position of spine (use viewH for coordinate mapping)
           const spineX = pos[0] * w;
-          const spineY = pos[1] * h;
+          const spineY = pos[1] * viewH;
 
           // Stamp cells across the width
           const halfCells = Math.ceil(radius / cellW) + 1;
@@ -413,8 +415,18 @@ export default function TentacleAscii({
             // Edge fade at viewport borders
             const edgeFadeX =
               Math.min(pos[0], 1 - pos[0]) * 5; // 0-1 over 20% from edges
-            const edgeFadeY =
-              Math.min(Math.max(1 - pos[1], 0) * 3, 1); // fade near bottom
+            // Fade near top (y<0) and in bleed zone below hero (y>1.0)
+            const bleedRatio = BLEED_PX / viewH; // bleed zone in normalized coords
+            let edgeFadeY: number;
+            if (pos[1] < 0) {
+              edgeFadeY = 0;
+            } else if (pos[1] <= 1.0) {
+              edgeFadeY = Math.min(pos[1] * 5, 1); // fade in from top
+            } else {
+              // Bleed zone: smooth fade out
+              const bleedProgress = (pos[1] - 1.0) / bleedRatio;
+              edgeFadeY = Math.max(1 - bleedProgress, 0);
+            }
             const edgeFade =
               Math.min(
                 Math.max(edgeFadeX, 0),
@@ -528,7 +540,7 @@ export default function TentacleAscii({
   return (
     <canvas
       ref={canvasRef}
-      className={cn("pointer-events-none absolute inset-0", className)}
+      className={cn("pointer-events-none absolute top-0 left-0 right-0", className)}
       aria-hidden="true"
     />
   );
