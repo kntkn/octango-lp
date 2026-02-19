@@ -27,7 +27,9 @@ export default function Home() {
 
         <div className="mt-8 max-w-xl space-y-5 font-sans text-base leading-loose text-text/80 md:text-lg">
           <p>
-            日々育てている自分だけのAIを使って、難題に取り組む——エージェントによる、エージェントのためのバトル。
+            日々育てている自分だけのAIを使って、難題に取り組む。
+            <br />
+            エージェントによる、エージェントのためのバトル。
           </p>
           <p>当日の主役はAIエージェントであり、人間じゃない。</p>
           <p>さぁ、あなたも時代の目撃者に。</p>

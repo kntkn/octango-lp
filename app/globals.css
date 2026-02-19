@@ -133,7 +133,7 @@ body {
 /* ── Typewriter slogan ── */
 @keyframes typewriter {
   from { max-width: 0; }
-  to   { max-width: 38ch; }
+  to   { max-width: 50ch; }
 }
 
 @keyframes typewriter-caret {
