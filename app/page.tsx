@@ -129,7 +129,7 @@ export default function Home() {
             <span className="text-accent">*</span>{" "}
             Mac Miniをお持ちでない方も参加可能です。
             <a
-              href="https://forms.gle/"
+              href="https://forms.gle/GsLXJb6gxDr9nMQa9"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-1 border-b border-accent/30 text-accent transition-colors duration-200 hover:border-accent hover:text-accent-light"
@@ -281,7 +281,7 @@ export default function Home() {
 
         <div className="mt-10 flex flex-col gap-4 sm:flex-row">
           <a
-            href="https://peatix.com/"
+            href="https://clawkosien2026.peatix.com/view"
             target="_blank"
             rel="noopener noreferrer"
             className="glow-cta inline-block cursor-pointer border bg-cta/10 px-10 py-4 text-center text-sm font-bold tracking-wide text-cta-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
@@ -289,7 +289,7 @@ export default function Home() {
             Peatix で登録
           </a>
           <a
-            href="https://lu.ma/"
+            href="https://luma.com/o4kdhk0x"
             target="_blank"
             rel="noopener noreferrer"
             className="glow-btn inline-block cursor-pointer border bg-accent/5 px-10 py-4 text-center text-sm font-bold tracking-wide text-accent-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
@@ -304,7 +304,7 @@ export default function Home() {
             <span className="text-accent">*</span>{" "}
             Mac Miniをお持ちでない方も参加可能です。
             <a
-              href="https://forms.gle/"
+              href="https://forms.gle/GsLXJb6gxDr9nMQa9"
               target="_blank"
               rel="noopener noreferrer"
               className="ml-1 border-b border-accent/30 text-accent transition-colors duration-200 hover:border-accent hover:text-accent-light"
