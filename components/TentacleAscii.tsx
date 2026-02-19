@@ -339,19 +339,21 @@ export default function TentacleAscii({
         const spd = cfg.speed;
         const amp = cfg.amplitude;
 
-        const dx =
-          (Math.sin(t * spd * 6.0 + ph) +
-            Math.sin(t * spd * 3.8 + ph * 1.3) * 0.5 +
-            Math.sin(t * spd * 1.5 + ph * 2.1) * 0.3) *
-          amp *
-          tipFactor;
-        const dy =
-          (Math.cos(t * spd * 5.0 + ph * 0.8) +
-            Math.sin(t * spd * 3.0 + ph * 0.9) * 0.4 +
-            Math.cos(t * spd * 1.2 + ph * 1.6) * 0.2) *
-          amp *
-          tipFactor *
-          0.7;
+        // Crayfish-style: angular, jerky movement with snapping
+        const raw =
+          Math.sin(t * spd * 6.0 + ph) +
+          Math.sin(t * spd * 3.8 + ph * 1.3) * 0.5 +
+          Math.sin(t * spd * 1.5 + ph * 2.1) * 0.3;
+        // Quantize slightly for mechanical feel
+        const snap = Math.round(raw * 3) / 3;
+        const dx = snap * amp * tipFactor;
+
+        const rawY =
+          Math.cos(t * spd * 5.0 + ph * 0.8) +
+          Math.sin(t * spd * 3.0 + ph * 0.9) * 0.4 +
+          Math.cos(t * spd * 1.2 + ph * 1.6) * 0.2;
+        const snapY = Math.round(rawY * 3) / 3;
+        const dy = snapY * amp * tipFactor * 0.7;
 
         return [pt[0] + dx, pt[1] + dy];
       });
@@ -467,11 +469,11 @@ export default function TentacleAscii({
               char = EDGE_CHARS[Math.min(ei, EDGE_CHARS.length - 1)];
             }
 
-            // Color: bright blue at core → dark blue at edges
+            // Color: bright red at core → dark crimson at edges
             const brightness = 1 - nd * 0.65;
-            const cr = Math.floor(20 + 76 * brightness);
-            const cg = Math.floor(50 + 115 * brightness);
-            const cb = Math.floor(140 + 110 * brightness);
+            const cr = Math.floor(140 + 108 * brightness);
+            const cg = Math.floor(18 + 48 * brightness);
+            const cb = Math.floor(12 + 26 * brightness);
 
             // Alpha: combine tentacle opacity, taper, edge fades, and fade-in
             const cellAlpha =

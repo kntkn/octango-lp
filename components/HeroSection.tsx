@@ -17,7 +17,7 @@ export default function HeroSection() {
           width: "min(900px, 80vw)",
           height: "min(700px, 70vh)",
           background:
-            "radial-gradient(ellipse at center, rgba(59,130,246,0.06) 0%, rgba(59,130,246,0.02) 40%, transparent 70%)",
+            "radial-gradient(ellipse at center, rgba(220,38,38,0.06) 0%, rgba(220,38,38,0.02) 40%, transparent 70%)",
         }}
         aria-hidden="true"
       />
@@ -30,22 +30,20 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <p className="typewriter font-mono text-[clamp(0.65rem,1.8vw,0.85rem)] tracking-[0.25em] text-accent/70">
-          Of agents, by agents, for agents
+        <p className="font-mono text-[clamp(0.7rem,1.8vw,0.9rem)] tracking-[0.2em] text-accent-light/60">
+          AIエージェントの実力を、証明せよ。
         </p>
 
         <h1
           className="mt-4 font-display text-[clamp(2.6rem,8vw,6.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text/85"
           style={{
             textShadow:
-              "0 0 40px rgba(59,130,246,0.12), 0 0 80px rgba(59,130,246,0.04)",
+              "0 0 40px rgba(220,38,38,0.12), 0 0 80px rgba(220,38,38,0.04)",
           }}
         >
-          OCTANGO
+          CLAW
           <br className="sm:hidden" />
-          <span className="text-[0.38em] font-bold tracking-[0.25em] text-accent-light sm:ml-[0.15em] sm:text-[0.4em] sm:tracking-[0.12em] sm:align-[0.15em]">
-            2026
-          </span>
+          <span className="sm:ml-[0.15em]">KOSHIEN</span>
         </h1>
 
         <p className="mt-8 text-[clamp(0.85rem,2.5vw,1.1rem)] tracking-[0.15em] text-text">

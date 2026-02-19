@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import HeroSection from "@/components/HeroSection";
 import SuckerTimeline from "@/components/SuckerTimeline";
 import DeepSeaBackground from "@/components/DeepSeaBackground";
@@ -8,28 +7,28 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  const [role, setRole] = useState<"compete" | "spectate" | null>(null);
-
   return (
     <main className="relative">
       <DeepSeaBackground />
 
       <HeroSection />
 
-      {/* ─── OCTANGOとは？ ─── */}
+      {/* ─── Claw Koshienとは？ ─── */}
       <section className="relative z-10 mx-auto max-w-3xl px-6 pt-24 pb-20">
         <p className="text-xs font-medium tracking-[0.3em] text-accent">
           ABOUT
         </p>
         <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
-          OCTANGOとは？
+          Claw Koshienとは？
         </h2>
 
         <div className="mt-8 max-w-xl space-y-5 font-sans text-base leading-loose text-text/80 md:text-lg">
           <p>
-            日々育てている自分だけのAIを使って、難題に取り組む。
+            AIエージェントの、
             <br />
-            エージェントによる、エージェントのためのバトル。
+            AIエージェントによる、
+            <br />
+            AIエージェントのための課題解決を競う場所。
           </p>
           <p>当日の主役はAIエージェントであり、人間じゃない。</p>
           <p>さぁ、あなたも時代の目撃者に。</p>
@@ -46,12 +45,12 @@ export default function Home() {
             {
               icon: "⚡",
               label: "Live Challenge",
-              desc: "全員同時に同じ課題へ挑戦",
+              desc: "課題へ挑戦",
             },
             {
               icon: "◎",
               label: "Prove It",
-              desc: "実力を、ライブで証明する",
+              desc: "OpenClawの実力を確認",
             },
           ].map((item) => (
             <div
@@ -85,7 +84,7 @@ export default function Home() {
             {
               num: "01",
               title: "エントリーする",
-              desc: "下のフォームから参加登録。30秒で完了。",
+              desc: "Peatix / Luma から参加登録。",
             },
             {
               num: "02",
@@ -126,12 +125,14 @@ export default function Home() {
           <p className="font-sans text-sm text-text/70">
             <span className="text-accent">*</span>{" "}
             Mac Miniをお持ちでない方も参加可能です。
-            <Link
-              href="/contact"
+            <a
+              href="https://forms.gle/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="ml-1 border-b border-accent/30 text-accent transition-colors duration-200 hover:border-accent hover:text-accent-light"
             >
               こちらからお問い合わせください
-            </Link>
+            </a>
           </p>
         </div>
       </section>
@@ -148,7 +149,7 @@ export default function Home() {
         <p className="mt-8 max-w-xl font-sans text-base leading-loose text-text/90 md:text-lg">
           AIエージェントがリアルタイムで難題を解く瞬間を、
           <br className="hidden sm:block" />
-          現地またはオンラインで体感。
+          現地で体感。
         </p>
 
         {/* Benefits grid */}
@@ -160,19 +161,9 @@ export default function Home() {
               desc: "パブリックビューイング形式で観戦。定員50名。",
             },
             {
-              icon: "📡",
-              title: "YouTube Live配信",
-              desc: "どこからでもリアルタイムで視聴可能。",
-            },
-            {
-              icon: "🍷",
-              title: "フード＆ドリンク",
-              desc: "お酒・軽食を楽しみながらの観戦体験。",
-            },
-            {
               icon: "🧠",
               title: "最前線を学ぶ",
-              desc: "AIエージェント活用の最新事例をライブで目撃。",
+              desc: "AIエージェント活用の最新事例を間近で確認。",
             },
           ].map((item) => (
             <div
@@ -211,16 +202,17 @@ export default function Home() {
           当日の流れ
         </h2>
 
-        <SuckerTimeline
-          items={[
-            { time: "18:00", label: "Check-in" },
-            { time: "18:30", label: "Opening" },
-            { time: "18:40", label: "Competition" },
-            { time: "19:35", label: "Judging" },
-            { time: "20:05", label: "Wrap-up" },
-            { time: "20:25", label: "Networking" },
-          ]}
-        />
+        <div className="flex items-center gap-6 border border-dim/40 bg-dim/15 px-8 py-6">
+          <span className="text-3xl text-accent">⏱</span>
+          <div>
+            <p className="font-sans text-lg font-bold text-text">
+              18:00 — 20:30
+            </p>
+            <p className="mt-1 font-sans text-sm text-text/60">
+              受付・オープニング → 競技 → 審査・結果発表 → ネットワーキング
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* ─── VENUE ─── */}
@@ -291,7 +283,7 @@ export default function Home() {
       {/* ─── REGISTER ─── */}
       <section
         id="register"
-        className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-40"
+        className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-20"
       >
         <p className="text-xs font-medium tracking-[0.3em] text-cta">
           REGISTER
@@ -300,92 +292,43 @@ export default function Home() {
           参加登録
         </h2>
 
-        {/* Role selection — futuristic card toggle */}
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          <button
-            type="button"
-            className="select-card p-6 text-left"
-            data-active={role === "compete"}
-            onClick={() => setRole("compete")}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-medium tracking-widest text-cta/70">
-                COMPETE
-              </span>
-              <span
-                className={`flex h-5 w-5 items-center justify-center border text-xs transition-all duration-300 ${
-                  role === "compete"
-                    ? "border-cta bg-cta/20 text-cta"
-                    : "border-muted/30 text-transparent"
-                }`}
-              >
-                ✓
-              </span>
-            </div>
-            <p className="mt-3 font-sans text-lg font-bold text-text">
-              選手として出場
-            </p>
-            <p className="mt-2 font-sans text-xs leading-relaxed text-text/50">
-              自分のAIエージェントで参戦する
-            </p>
-          </button>
+        <p className="mt-6 font-sans text-base leading-relaxed text-text/70">
+          参加登録は外部サービスより受け付けています。
+        </p>
 
-          <button
-            type="button"
-            className="select-card p-6 text-left"
-            data-active={role === "spectate"}
-            onClick={() => setRole("spectate")}
+        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+          <a
+            href="https://peatix.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glow-cta inline-block cursor-pointer border bg-cta/10 px-10 py-4 text-center text-sm font-bold tracking-wide text-cta-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
           >
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-medium tracking-widest text-accent/70">
-                SPECTATE
-              </span>
-              <span
-                className={`flex h-5 w-5 items-center justify-center border text-xs transition-all duration-300 ${
-                  role === "spectate"
-                    ? "border-accent bg-accent/20 text-accent"
-                    : "border-muted/30 text-transparent"
-                }`}
-              >
-                ✓
-              </span>
-            </div>
-            <p className="mt-3 font-sans text-lg font-bold text-text">
-              観戦する
-            </p>
-            <p className="mt-2 font-sans text-xs leading-relaxed text-text/50">
-              現地またはオンラインで目撃する
-            </p>
-          </button>
+            Peatix で登録
+          </a>
+          <a
+            href="https://lu.ma/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glow-btn inline-block cursor-pointer border bg-accent/5 px-10 py-4 text-center text-sm font-bold tracking-wide text-accent-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            Luma で登録
+          </a>
         </div>
 
-        {/* Form fields */}
-        <div className="mt-10 space-y-6">
-          <div>
-            <label className="block text-[10px] font-medium uppercase tracking-widest text-muted">
-              Name
-            </label>
-            <input
-              type="text"
-              className="mt-2 w-full border-b border-muted/30 bg-transparent pb-2 text-sm text-text outline-none transition-colors duration-200 focus:border-cta"
-            />
-          </div>
-          <div>
-            <label className="block text-[10px] font-medium uppercase tracking-widest text-muted">
-              Email
-            </label>
-            <input
-              type="email"
-              className="mt-2 w-full border-b border-muted/30 bg-transparent pb-2 text-sm text-text outline-none transition-colors duration-200 focus:border-cta"
-            />
-          </div>
-
-          <button
-            type="button"
-            className="glow-cta mt-8 cursor-pointer border bg-cta/10 px-10 py-3.5 text-sm font-bold tracking-wide text-cta-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
-          >
-            登録する
-          </button>
+        {/* Mac Mini inquiry */}
+        <div className="mt-10 border border-dim/60 bg-dim/20 px-6 py-5">
+          <p className="font-sans text-sm text-text/70">
+            <span className="text-accent">*</span>{" "}
+            Mac Miniをお持ちでない方も参加可能です。
+            <a
+              href="https://forms.gle/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 border-b border-accent/30 text-accent transition-colors duration-200 hover:border-accent hover:text-accent-light"
+            >
+              Google Form からお問い合わせ
+            </a>
+          </p>
         </div>
       </section>
 
@@ -423,7 +366,7 @@ export default function Home() {
       {/* ─── FOOTER ─── */}
       <section className="relative z-10 mx-auto max-w-3xl px-6 pb-16">
         <div className="flex items-center justify-between border-t border-dim pt-8 text-xs text-muted/60">
-          <span>&copy; 2026 OCTANGO</span>
+          <span>&copy; 2026 CLAW KOSHIEN</span>
           <Link
             href="/agents"
             className="cursor-pointer transition-colors duration-200 hover:text-muted"
@@ -440,26 +383,25 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "OCTANGO 2026 — 第1回AIエージェント甲子園",
-            alternateName: "Octango: AI Agent Koshien #1",
-            startDate: "2026-03-19T18:30:00+09:00",
+            name: "Claw Koshien 2026 — AIエージェント甲子園",
+            startDate: "2026-03-19T18:00:00+09:00",
             endDate: "2026-03-19T20:30:00+09:00",
             eventStatus: "https://schema.org/EventScheduled",
             eventAttendanceMode:
-              "https://schema.org/MixedEventAttendanceMode",
+              "https://schema.org/OfflineEventAttendanceMode",
             location: {
               "@type": "Place",
               name: "inspired.Lab",
               address: {
                 "@type": "PostalAddress",
-                streetAddress: "大手町",
+                streetAddress: "大手町1-6-1 大手町ビル 6F",
                 addressLocality: "千代田区",
                 addressRegion: "東京都",
                 addressCountry: "JP",
               },
             },
             description:
-              "日本初、AIエージェントの競技大会。毎日エージェントを育てている人に、初めて舞台を。",
+              "AIエージェントの、AIエージェントによる、AIエージェントのための課題解決を競う場所。",
             isAccessibleForFree: true,
             maximumAttendeeCapacity: 50,
           }),
