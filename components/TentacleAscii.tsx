@@ -7,17 +7,17 @@ import { cn } from "@/lib/cn";
 
 const FONT_SIZE = 16;
 const LINE_HEIGHT = 1.18;
-const CHAR_ASPECT = 0.6; // monospace char width / height
+const CHAR_ASPECT = 0.6;
 const TARGET_FPS = 30;
 const FRAME_TIME = 1000 / TARGET_FPS;
 
-/* Character palettes — density & direction */
+/* Character palettes */
 const BODY_DENSE = ["█", "▓", "▒", "░"];
 const EDGE_CHARS = ["·", ".", "°", "˙"];
-const SUCKER = ["◉", "⊙", "○"];
+const CLAW_CHARS = ["▛", "▜", "▟", "▙", "█", "▓"];
+const SEGMENT_CHARS = ["═", "║"];
 
 function directionChar(angle: number): string {
-  // Normalize angle to [0, PI)
   const a = ((angle % Math.PI) + Math.PI) % Math.PI;
   if (a < Math.PI * 0.125 || a >= Math.PI * 0.875) return "─";
   if (a < Math.PI * 0.375) return "╲";
@@ -25,7 +25,7 @@ function directionChar(angle: number): string {
   return "╱";
 }
 
-/* ── CatmullRom evaluation (pure JS, no Three.js) ────── */
+/* ── CatmullRom ────────────────────────────────────────── */
 
 function catmullRom(
   p0: [number, number],
@@ -74,7 +74,6 @@ function catmullRomTangent(
   return [tx, ty];
 }
 
-/** Evaluate a full CatmullRom spline at parameter t ∈ [0, 1] */
 function evalSpline(
   pts: [number, number][],
   t: number,
@@ -83,162 +82,118 @@ function evalSpline(
   const raw = t * n;
   const i = Math.min(Math.floor(raw), n - 1);
   const local = raw - i;
-
   const p0 = pts[Math.max(i - 1, 0)];
   const p1 = pts[i];
   const p2 = pts[Math.min(i + 1, n)];
   const p3 = pts[Math.min(i + 2, n)];
-
   return {
     pos: catmullRom(p0, p1, p2, p3, local),
     tangent: catmullRomTangent(p0, p1, p2, p3, local),
   };
 }
 
-/* ── 8 Tentacle path definitions ─────────────────────── *
- * Coordinates in normalized [0,1] space.
- * y > 1.0 = below viewport (origin of creature).
- * Each tentacle has: points, baseRadius (at root),
- * speed, amplitude, phase offset.
+/* ── Lobster anatomy ───────────────────────────────────── *
+ * Body center at (0.5, 0.75). Claws reach upward,
+ * tail extends below viewport. Coordinates in [0,1] space.
  * ──────────────────────────────────────────────────────── */
 
-interface TentacleCfg {
+type PartType = "claw" | "pincer" | "body" | "antenna" | "leg" | "tail";
+
+interface PartCfg {
   points: [number, number][];
-  baseRadius: number; // fraction of viewport width
+  baseRadius: number;
   speed: number;
   amplitude: number;
   phase: number;
   opacity: number;
+  type: PartType;
 }
 
-const TENTACLES: TentacleCfg[] = [
+const PARTS: PartCfg[] = [
+  // ─── RIGHT CLAW ───
   {
-    // #1 — Main left, massive sweep across viewport
-    points: [
-      [-0.15, 1.3],
-      [0.0, 0.82],
-      [0.15, 0.52],
-      [0.35, 0.28],
-      [0.55, 0.12],
-      [0.75, -0.02],
-    ],
-    baseRadius: 0.095,
-    speed: 0.5,
-    amplitude: 0.07,
-    phase: 0,
-    opacity: 0.95,
+    points: [[0.52, 0.72], [0.58, 0.58], [0.65, 0.42], [0.72, 0.28], [0.78, 0.18], [0.82, 0.10]],
+    baseRadius: 0.065, speed: 0.4, amplitude: 0.025, phase: 0, opacity: 0.95, type: "claw",
   },
   {
-    // #2 — Main right, crosses #1
-    points: [
-      [1.18, 1.25],
-      [0.98, 0.78],
-      [0.8, 0.48],
-      [0.6, 0.28],
-      [0.38, 0.14],
-      [0.2, 0.0],
-    ],
-    baseRadius: 0.088,
-    speed: 0.45,
-    amplitude: 0.065,
-    phase: 1.2,
-    opacity: 0.92,
+    points: [[0.82, 0.10], [0.88, 0.04], [0.94, 0.01], [0.98, 0.0]],
+    baseRadius: 0.035, speed: 0.6, amplitude: 0.015, phase: 0.3, opacity: 0.9, type: "pincer",
   },
   {
-    // #3 — Center-left, rises steeply
-    points: [
-      [0.25, 1.35],
-      [0.28, 0.92],
-      [0.32, 0.6],
-      [0.37, 0.32],
-      [0.34, 0.1],
-      [0.3, -0.08],
-    ],
-    baseRadius: 0.072,
-    speed: 0.42,
-    amplitude: 0.05,
-    phase: 2.5,
-    opacity: 0.88,
+    points: [[0.82, 0.10], [0.87, 0.10], [0.92, 0.08], [0.95, 0.06]],
+    baseRadius: 0.028, speed: 0.6, amplitude: 0.012, phase: 0.3, opacity: 0.85, type: "pincer",
+  },
+
+  // ─── LEFT CLAW ───
+  {
+    points: [[0.48, 0.72], [0.42, 0.58], [0.35, 0.42], [0.28, 0.28], [0.22, 0.18], [0.18, 0.10]],
+    baseRadius: 0.065, speed: 0.4, amplitude: 0.025, phase: 3.14, opacity: 0.95, type: "claw",
   },
   {
-    // #4 — Center-right, rises steeply
-    points: [
-      [0.78, 1.32],
-      [0.74, 0.9],
-      [0.68, 0.58],
-      [0.63, 0.3],
-      [0.66, 0.08],
-      [0.7, -0.08],
-    ],
-    baseRadius: 0.068,
-    speed: 0.48,
-    amplitude: 0.055,
-    phase: 3.8,
-    opacity: 0.85,
+    points: [[0.18, 0.10], [0.12, 0.04], [0.06, 0.01], [0.02, 0.0]],
+    baseRadius: 0.035, speed: 0.6, amplitude: 0.015, phase: 3.44, opacity: 0.9, type: "pincer",
   },
   {
-    // #5 — Far left, hugs edge
-    points: [
-      [-0.18, 1.18],
-      [-0.08, 0.85],
-      [0.0, 0.55],
-      [0.06, 0.3],
-      [0.1, 0.08],
-      [0.12, -0.1],
-    ],
-    baseRadius: 0.06,
-    speed: 0.38,
-    amplitude: 0.04,
-    phase: 5.0,
-    opacity: 0.72,
+    points: [[0.18, 0.10], [0.13, 0.10], [0.08, 0.08], [0.05, 0.06]],
+    baseRadius: 0.028, speed: 0.6, amplitude: 0.012, phase: 3.44, opacity: 0.85, type: "pincer",
+  },
+
+  // ─── BODY ───
+  {
+    points: [[0.50, 0.58], [0.50, 0.65], [0.50, 0.72], [0.50, 0.80], [0.50, 0.88]],
+    baseRadius: 0.10, speed: 0.15, amplitude: 0.008, phase: 1.0, opacity: 0.9, type: "body",
+  },
+
+  // ─── ANTENNAE ───
+  {
+    points: [[0.54, 0.60], [0.60, 0.42], [0.62, 0.25], [0.58, 0.08], [0.52, -0.05]],
+    baseRadius: 0.015, speed: 0.7, amplitude: 0.04, phase: 1.5, opacity: 0.6, type: "antenna",
   },
   {
-    // #6 — Far right, hugs edge
-    points: [
-      [1.2, 1.2],
-      [1.1, 0.82],
-      [1.0, 0.52],
-      [0.94, 0.28],
-      [0.9, 0.06],
-      [0.88, -0.1],
-    ],
-    baseRadius: 0.058,
-    speed: 0.4,
-    amplitude: 0.042,
-    phase: 6.2,
-    opacity: 0.7,
+    points: [[0.46, 0.60], [0.40, 0.42], [0.38, 0.25], [0.42, 0.08], [0.48, -0.05]],
+    baseRadius: 0.015, speed: 0.7, amplitude: 0.04, phase: 4.5, opacity: 0.6, type: "antenna",
+  },
+
+  // ─── RIGHT LEGS ───
+  {
+    points: [[0.54, 0.68], [0.65, 0.66], [0.76, 0.62], [0.85, 0.56]],
+    baseRadius: 0.022, speed: 0.5, amplitude: 0.018, phase: 2.0, opacity: 0.7, type: "leg",
   },
   {
-    // #7 — Background sweep left→right
-    points: [
-      [0.1, 1.4],
-      [0.18, 0.95],
-      [0.3, 0.62],
-      [0.45, 0.38],
-      [0.6, 0.18],
-      [0.78, 0.04],
-    ],
-    baseRadius: 0.048,
-    speed: 0.35,
-    amplitude: 0.035,
-    phase: 7.5,
-    opacity: 0.55,
+    points: [[0.54, 0.74], [0.66, 0.73], [0.78, 0.70], [0.88, 0.66]],
+    baseRadius: 0.020, speed: 0.45, amplitude: 0.016, phase: 2.5, opacity: 0.65, type: "leg",
   },
   {
-    // #8 — Background sweep right→left
-    points: [
-      [0.92, 1.38],
-      [0.85, 0.94],
-      [0.72, 0.62],
-      [0.55, 0.36],
-      [0.4, 0.16],
-      [0.25, 0.02],
-    ],
-    baseRadius: 0.045,
-    speed: 0.33,
-    amplitude: 0.032,
-    phase: 8.8,
-    opacity: 0.5,
+    points: [[0.54, 0.80], [0.66, 0.80], [0.78, 0.78], [0.87, 0.75]],
+    baseRadius: 0.018, speed: 0.42, amplitude: 0.014, phase: 3.0, opacity: 0.6, type: "leg",
+  },
+
+  // ─── LEFT LEGS ───
+  {
+    points: [[0.46, 0.68], [0.35, 0.66], [0.24, 0.62], [0.15, 0.56]],
+    baseRadius: 0.022, speed: 0.5, amplitude: 0.018, phase: 5.0, opacity: 0.7, type: "leg",
+  },
+  {
+    points: [[0.46, 0.74], [0.34, 0.73], [0.22, 0.70], [0.12, 0.66]],
+    baseRadius: 0.020, speed: 0.45, amplitude: 0.016, phase: 5.5, opacity: 0.65, type: "leg",
+  },
+  {
+    points: [[0.46, 0.80], [0.34, 0.80], [0.22, 0.78], [0.13, 0.75]],
+    baseRadius: 0.018, speed: 0.42, amplitude: 0.014, phase: 6.0, opacity: 0.6, type: "leg",
+  },
+
+  // ─── TAIL FAN ───
+  {
+    points: [[0.50, 0.88], [0.50, 0.96], [0.50, 1.04], [0.50, 1.12]],
+    baseRadius: 0.07, speed: 0.3, amplitude: 0.02, phase: 7.0, opacity: 0.75, type: "tail",
+  },
+  {
+    points: [[0.50, 1.04], [0.56, 1.10], [0.62, 1.16], [0.66, 1.20]],
+    baseRadius: 0.035, speed: 0.35, amplitude: 0.015, phase: 7.3, opacity: 0.6, type: "tail",
+  },
+  {
+    points: [[0.50, 1.04], [0.44, 1.10], [0.38, 1.16], [0.34, 1.20]],
+    baseRadius: 0.035, speed: 0.35, amplitude: 0.015, phase: 7.6, opacity: 0.6, type: "tail",
   },
 ];
 
@@ -254,7 +209,7 @@ interface Cell {
 
 /* ── Component ───────────────────────────────────────── */
 
-const BLEED_PX = 280; // how far tentacles extend below hero
+const BLEED_PX = 280;
 
 export default function TentacleAscii({
   className = "",
@@ -274,15 +229,14 @@ export default function TentacleAscii({
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    /* ── Grid dimensions (recalculated on resize) ── */
     let cols = 0;
     let rows = 0;
     let cellW = 0;
     let cellH = 0;
     let grid: Cell[][] = [];
     let w = 0;
-    let h = 0; // canvas pixel height (viewport + bleed)
-    let viewH = 0; // viewport height (for normalized coordinate mapping)
+    let h = 0;
+    let viewH = 0;
 
     function resize() {
       const dpr = Math.min(window.devicePixelRatio, 2);
@@ -301,7 +255,6 @@ export default function TentacleAscii({
       cols = Math.ceil(w / cellW) + 1;
       rows = Math.ceil(h / cellH) + 1;
 
-      // Allocate grid
       grid = [];
       for (let r = 0; r < rows; r++) {
         const row: Cell[] = [];
@@ -315,7 +268,6 @@ export default function TentacleAscii({
     resize();
     window.addEventListener("resize", resize);
 
-    /* ── Visibility ── */
     let visible = true;
     const obs = new IntersectionObserver(
       ([e]) => {
@@ -325,35 +277,37 @@ export default function TentacleAscii({
     );
     obs.observe(canvas);
 
-    /* ── Animate tentacle points ── */
+    /* ── Animate: crayfish-style jerky motion ── */
     function animatePoints(
-      cfg: TentacleCfg,
+      cfg: PartCfg,
       t: number,
     ): [number, number][] {
       if (prefersReduced) return cfg.points;
 
       return cfg.points.map((pt, i) => {
         const tipFactor =
-          0.12 + (i / (cfg.points.length - 1)) * 0.88;
+          0.1 + (i / (cfg.points.length - 1)) * 0.9;
         const ph = cfg.phase + i * 1.7;
         const spd = cfg.speed;
         const amp = cfg.amplitude;
 
-        // Crayfish-style: angular, jerky movement with snapping
         const raw =
           Math.sin(t * spd * 6.0 + ph) +
           Math.sin(t * spd * 3.8 + ph * 1.3) * 0.5 +
           Math.sin(t * spd * 1.5 + ph * 2.1) * 0.3;
-        // Quantize slightly for mechanical feel
-        const snap = Math.round(raw * 3) / 3;
+        const snap = Math.round(raw * 4) / 4;
         const dx = snap * amp * tipFactor;
 
         const rawY =
           Math.cos(t * spd * 5.0 + ph * 0.8) +
-          Math.sin(t * spd * 3.0 + ph * 0.9) * 0.4 +
-          Math.cos(t * spd * 1.2 + ph * 1.6) * 0.2;
-        const snapY = Math.round(rawY * 3) / 3;
-        const dy = snapY * amp * tipFactor * 0.7;
+          Math.sin(t * spd * 3.0 + ph * 0.9) * 0.4;
+        const snapY = Math.round(rawY * 4) / 4;
+        let dy = snapY * amp * tipFactor * 0.6;
+
+        // Pincers: open/close motion
+        if (cfg.type === "pincer") {
+          dy += Math.sin(t * 1.2 + cfg.phase) * 0.015 * tipFactor;
+        }
 
         return [pt[0] + dx, pt[1] + dy];
       });
@@ -361,9 +315,8 @@ export default function TentacleAscii({
 
     /* ── Render one frame ── */
     function render(t: number) {
-      const fadeIn = Math.min(t / 3.0, 1);
+      const fadeIn = Math.min(t / 2.5, 1);
 
-      // Clear grid
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           const cell = grid[r][c];
@@ -372,33 +325,37 @@ export default function TentacleAscii({
         }
       }
 
-      // For each tentacle, sample along the curve and stamp grid cells
-      for (const cfg of TENTACLES) {
+      for (const cfg of PARTS) {
         const pts = animatePoints(cfg, t);
-        const samples = 260;
+        const samples = 200;
 
         for (let s = 0; s <= samples; s++) {
           const param = s / samples;
           const { pos, tangent } = evalSpline(pts, param);
 
-          // Taper: thick at base (param=0), thin at tip (param=1)
-          const taper = Math.pow(1 - param, 1.2);
-          const radius = cfg.baseRadius * taper * w; // pixels
+          // Taper per part type
+          let taper: number;
+          if (cfg.type === "body") {
+            taper = 0.8 + 0.2 * Math.sin(param * Math.PI);
+          } else if (cfg.type === "claw") {
+            taper = Math.pow(1 - param, 0.8) + Math.sin(param * Math.PI) * 0.3;
+          } else if (cfg.type === "tail") {
+            taper = 0.5 + 0.5 * param;
+          } else {
+            taper = Math.pow(1 - param, 1.2);
+          }
+          const radius = cfg.baseRadius * taper * w;
 
-          // Tangent angle for direction chars
           const angle = Math.atan2(tangent[1], tangent[0]);
-          // Normal direction (perpendicular to tangent)
           const len = Math.sqrt(
             tangent[0] * tangent[0] + tangent[1] * tangent[1],
           );
           const nx = len > 0 ? -tangent[1] / len : 0;
           const ny = len > 0 ? tangent[0] / len : 0;
 
-          // Pixel position of spine (use viewH for coordinate mapping)
           const spineX = pos[0] * w;
           const spineY = pos[1] * viewH;
 
-          // Stamp cells across the width
           const halfCells = Math.ceil(radius / cellW) + 1;
 
           for (let offset = -halfCells; offset <= halfCells; offset++) {
@@ -410,72 +367,83 @@ export default function TentacleAscii({
 
             if (col < 0 || col >= cols || row < 0 || row >= rows) continue;
 
-            // Normalized distance from center (0 = spine, 1 = edge)
             const dist = Math.abs(offset * cellW) / Math.max(radius, 1);
             if (dist > 1.15) continue;
 
-            // Edge fade at viewport borders
+            const nd = Math.min(dist, 1);
+
+            // Edge fade
             const edgeFadeX =
-              Math.min(pos[0], 1 - pos[0]) * 5; // 0-1 over 20% from edges
-            // Fade near top (y<0) and in bleed zone below hero (y>1.0)
-            const bleedRatio = BLEED_PX / viewH; // bleed zone in normalized coords
+              Math.min(Math.max(Math.min(pos[0], 1 - pos[0]) * 5, 0), 1);
+            const bleedRatio = BLEED_PX / viewH;
             let edgeFadeY: number;
             if (pos[1] < 0) {
               edgeFadeY = 0;
             } else if (pos[1] <= 1.0) {
-              edgeFadeY = Math.min(pos[1] * 5, 1); // fade in from top
+              edgeFadeY = Math.min(pos[1] * 5, 1);
             } else {
-              // Bleed zone: smooth fade out
               const bleedProgress = (pos[1] - 1.0) / bleedRatio;
               edgeFadeY = Math.max(1 - bleedProgress, 0);
             }
-            const edgeFade =
-              Math.min(
-                Math.max(edgeFadeX, 0),
-                1,
-              ) * edgeFadeY;
+            const edgeFade = edgeFadeX * edgeFadeY;
 
-            // Pick character
+            // Pick character based on part type
             let char: string;
-            const nd = Math.min(dist, 1);
 
-            // Sucker pattern along the spine
-            const suckerPhase = (param * 30 + t * cfg.speed * 2) % 1;
-
-            if (nd < 0.12 && suckerPhase < 0.3) {
-              // Sucker at center
-              const si = Math.floor(nd * SUCKER.length / 0.12);
-              char = SUCKER[Math.min(si, SUCKER.length - 1)];
-            } else if (nd < 0.18) {
-              // Direction char at near-center
-              char = directionChar(angle);
-            } else if (nd < 0.45) {
-              // Dense body
-              const bi = Math.floor(
-                ((nd - 0.18) / 0.27) * BODY_DENSE.length,
-              );
-              char = BODY_DENSE[Math.min(bi, BODY_DENSE.length - 1)];
-            } else if (nd < 0.75) {
-              // Medium density
-              const bi =
-                Math.floor(((nd - 0.45) / 0.3) * BODY_DENSE.length) + 1;
-              char =
-                BODY_DENSE[Math.min(bi, BODY_DENSE.length - 1)];
+            if (cfg.type === "claw" || cfg.type === "pincer") {
+              if (nd < 0.2) {
+                char = CLAW_CHARS[Math.floor(nd * CLAW_CHARS.length / 0.2) % CLAW_CHARS.length];
+              } else if (nd < 0.5) {
+                char = BODY_DENSE[Math.floor((nd - 0.2) / 0.3 * BODY_DENSE.length)];
+              } else {
+                char = EDGE_CHARS[Math.floor((nd - 0.5) / 0.65 * EDGE_CHARS.length) % EDGE_CHARS.length];
+              }
+            } else if (cfg.type === "body") {
+              const segPhase = (param * 12) % 1;
+              if (nd < 0.15 && segPhase < 0.15) {
+                char = SEGMENT_CHARS[Math.floor(segPhase * 2 / 0.15) % SEGMENT_CHARS.length];
+              } else if (nd < 0.4) {
+                char = BODY_DENSE[Math.floor(nd / 0.4 * BODY_DENSE.length)];
+              } else if (nd < 0.7) {
+                char = BODY_DENSE[Math.floor((nd - 0.4) / 0.3 * BODY_DENSE.length) + 1];
+              } else {
+                char = EDGE_CHARS[Math.floor((nd - 0.7) / 0.45 * EDGE_CHARS.length) % EDGE_CHARS.length];
+              }
+            } else if (cfg.type === "antenna") {
+              char = nd < 0.3 ? directionChar(angle) : EDGE_CHARS[0];
             } else {
-              // Edge dots
-              const ei = Math.floor(
-                ((nd - 0.75) / 0.4) * EDGE_CHARS.length,
-              );
-              char = EDGE_CHARS[Math.min(ei, EDGE_CHARS.length - 1)];
+              // legs, tail
+              if (nd < 0.3) {
+                char = directionChar(angle);
+              } else if (nd < 0.6) {
+                char = BODY_DENSE[Math.min(Math.floor((nd - 0.3) / 0.3 * BODY_DENSE.length), BODY_DENSE.length - 1)];
+              } else {
+                char = EDGE_CHARS[Math.min(Math.floor((nd - 0.6) / 0.55 * EDGE_CHARS.length), EDGE_CHARS.length - 1)];
+              }
             }
 
-            // Color: bright red at core → dark crimson at edges
+            // Color per part type
             const brightness = 1 - nd * 0.65;
-            const cr = Math.floor(140 + 108 * brightness);
-            const cg = Math.floor(18 + 48 * brightness);
-            const cb = Math.floor(12 + 26 * brightness);
+            let cr: number, cg: number, cb: number;
 
-            // Alpha: combine tentacle opacity, taper, edge fades, and fade-in
+            if (cfg.type === "body") {
+              cr = Math.floor(120 + 90 * brightness);
+              cg = Math.floor(12 + 30 * brightness);
+              cb = Math.floor(8 + 18 * brightness);
+            } else if (cfg.type === "claw" || cfg.type === "pincer") {
+              cr = Math.floor(150 + 105 * brightness);
+              cg = Math.floor(22 + 55 * brightness);
+              cb = Math.floor(10 + 20 * brightness);
+            } else if (cfg.type === "antenna") {
+              cr = Math.floor(140 + 80 * brightness);
+              cg = Math.floor(40 + 50 * brightness);
+              cb = Math.floor(15 + 20 * brightness);
+            } else {
+              cr = Math.floor(130 + 100 * brightness);
+              cg = Math.floor(18 + 40 * brightness);
+              cb = Math.floor(10 + 22 * brightness);
+            }
+
             const cellAlpha =
               cfg.opacity *
               (1 - nd * nd) *
@@ -483,7 +451,6 @@ export default function TentacleAscii({
               edgeFade *
               fadeIn;
 
-            // Write to grid (blend: keep highest alpha)
             const cell = grid[row][col];
             if (cellAlpha > cell.a) {
               cell.char = char;
@@ -512,7 +479,7 @@ export default function TentacleAscii({
       }
     }
 
-    /* ── Animation loop (30fps accumulator like ghostty.org) ── */
+    /* ── Animation loop ── */
     let raf = 0;
     const start = performance.now();
     let lastFrame = 0;
@@ -531,7 +498,6 @@ export default function TentacleAscii({
 
     raf = requestAnimationFrame(loop);
 
-    /* ── Cleanup ── */
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
