@@ -13,8 +13,10 @@ export default function Home() {
       <HeroSection />
 
       {/* ─── Claw甲子園とは？ ─── */}
-      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-24 pb-20">
-        <p className="text-xs font-medium tracking-[0.3em] text-accent">
+      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-28 pb-20">
+        <div className="mb-10 h-px bg-gradient-to-r from-transparent via-dim to-transparent" />
+        <p className="flex items-center gap-3 text-sm font-medium tracking-[0.3em] text-accent">
+          <span className="inline-block h-px w-6 bg-accent/50" />
           ABOUT
         </p>
         <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
@@ -69,8 +71,10 @@ export default function Home() {
       </section>
 
       {/* ─── 出場方法 ─── */}
-      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-20">
-        <p className="text-xs font-medium tracking-[0.3em] text-accent">
+      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-28 pb-20">
+        <div className="mb-10 h-px bg-gradient-to-r from-transparent via-dim to-transparent" />
+        <p className="flex items-center gap-3 text-sm font-medium tracking-[0.3em] text-accent">
+          <span className="inline-block h-px w-6 bg-accent/50" />
           HOW TO ENTER
         </p>
         <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
@@ -137,8 +141,10 @@ export default function Home() {
       </section>
 
       {/* ─── 目撃せよ。 ─── */}
-      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-20">
-        <p className="text-xs font-medium tracking-[0.3em] text-accent">
+      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-28 pb-20">
+        <div className="mb-10 h-px bg-gradient-to-r from-transparent via-dim to-transparent" />
+        <p className="flex items-center gap-3 text-sm font-medium tracking-[0.3em] text-accent">
+          <span className="inline-block h-px w-6 bg-accent/50" />
           SPECTATE
         </p>
         <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
@@ -189,8 +195,10 @@ export default function Home() {
       </section>
 
       {/* ─── VENUE ─── */}
-      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-20">
-        <p className="text-xs font-medium tracking-[0.3em] text-accent">
+      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-28 pb-20">
+        <div className="mb-10 h-px bg-gradient-to-r from-transparent via-dim to-transparent" />
+        <p className="flex items-center gap-3 text-sm font-medium tracking-[0.3em] text-accent">
+          <span className="inline-block h-px w-6 bg-accent/50" />
           VENUE
         </p>
         <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
@@ -256,9 +264,11 @@ export default function Home() {
       {/* ─── REGISTER ─── */}
       <section
         id="register"
-        className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-20"
+        className="relative z-10 mx-auto max-w-3xl px-6 pt-28 pb-20"
       >
-        <p className="text-xs font-medium tracking-[0.3em] text-cta">
+        <div className="mb-10 h-px bg-gradient-to-r from-transparent via-dim to-transparent" />
+        <p className="flex items-center gap-3 text-sm font-medium tracking-[0.3em] text-cta">
+          <span className="inline-block h-px w-6 bg-cta/50" />
           REGISTER
         </p>
         <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
