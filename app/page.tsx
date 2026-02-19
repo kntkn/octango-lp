@@ -389,18 +389,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── SUPPORTED BY ─── */}
+      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-10">
+        <p className="text-center text-[10px] font-medium uppercase tracking-[0.3em] text-muted/40">
+          Supported by
+        </p>
+        <div className="mt-8 flex items-center justify-center gap-12 sm:gap-16">
+          <Image
+            src="/logos/inspiredlab.svg"
+            alt="inspired.Lab"
+            width={120}
+            height={60}
+            className="h-6 w-auto opacity-50 transition-opacity duration-300 hover:opacity-80 sm:h-7"
+          />
+          <Image
+            src="/logos/mec.png"
+            alt="三菱地所"
+            width={227}
+            height={51}
+            className="h-5 w-auto opacity-50 transition-opacity duration-300 hover:opacity-80 sm:h-6"
+            style={{ filter: "invert(1) brightness(2)" }}
+          />
+          <Image
+            src="/logos/sap.svg"
+            alt="SAP"
+            width={120}
+            height={60}
+            className="h-8 w-auto opacity-50 transition-opacity duration-300 hover:opacity-80 sm:h-10"
+          />
+        </div>
+      </section>
+
       {/* ─── FOOTER ─── */}
       <section className="relative z-10 mx-auto max-w-3xl px-6 pb-16">
-        {/* Partners */}
-        <div className="text-center text-xs text-muted/60">
-          <p>
-            inspired.Lab &middot; 三菱地所 &middot; SAP &middot; IPconnect
-            &middot; FANGO &middot; JAPANGO
-          </p>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-10 flex items-center justify-between border-t border-dim pt-8 text-xs text-muted/60">
+        <div className="flex items-center justify-between border-t border-dim pt-8 text-xs text-muted/60">
           <span>&copy; 2026 OCTANGO</span>
           <Link
             href="/agents"
