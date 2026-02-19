@@ -234,25 +234,32 @@ export default function TentacleAscii({
     let cellW = 0;
     let cellH = 0;
     let grid: Cell[][] = [];
-    let w = 0;
+    let renderW = 0;
     let h = 0;
     let viewH = 0;
+    let offsetX = 0;
+
+    const MIN_ASPECT = 1.3;
 
     function resize() {
       const dpr = Math.min(window.devicePixelRatio, 2);
-      w = window.innerWidth;
+      const screenW = window.innerWidth;
       viewH = window.innerHeight;
       h = viewH + BLEED_PX;
 
-      canvas!.width = w * dpr;
+      // Maintain minimum aspect ratio — render wider than viewport on mobile
+      renderW = Math.max(screenW, viewH * MIN_ASPECT);
+      offsetX = (renderW - screenW) / 2;
+
+      canvas!.width = screenW * dpr;
       canvas!.height = h * dpr;
-      canvas!.style.width = `${w}px`;
+      canvas!.style.width = `${screenW}px`;
       canvas!.style.height = `${h}px`;
       ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       cellH = FONT_SIZE * LINE_HEIGHT;
       cellW = FONT_SIZE * CHAR_ASPECT;
-      cols = Math.ceil(w / cellW) + 1;
+      cols = Math.ceil(renderW / cellW) + 1;
       rows = Math.ceil(h / cellH) + 1;
 
       grid = [];
@@ -344,7 +351,7 @@ export default function TentacleAscii({
           } else {
             taper = Math.pow(1 - param, 1.2);
           }
-          const radius = cfg.baseRadius * taper * w;
+          const radius = cfg.baseRadius * taper * renderW;
 
           const angle = Math.atan2(tangent[1], tangent[0]);
           const len = Math.sqrt(
@@ -353,7 +360,7 @@ export default function TentacleAscii({
           const nx = len > 0 ? -tangent[1] / len : 0;
           const ny = len > 0 ? tangent[0] / len : 0;
 
-          const spineX = pos[0] * w;
+          const spineX = pos[0] * renderW;
           const spineY = pos[1] * viewH;
 
           const halfCells = Math.ceil(radius / cellW) + 1;
@@ -463,8 +470,8 @@ export default function TentacleAscii({
         }
       }
 
-      // Draw to canvas
-      ctx!.clearRect(0, 0, w, h);
+      // Draw to canvas (shift by -offsetX to crop sides)
+      ctx!.clearRect(0, 0, renderW, h);
       ctx!.font = `${FONT_SIZE}px "JetBrains Mono", monospace`;
       ctx!.textBaseline = "top";
 
@@ -473,8 +480,11 @@ export default function TentacleAscii({
           const cell = grid[r][c];
           if (cell.a < 0.02 || !cell.char) continue;
 
+          const drawX = c * cellW - offsetX;
+          if (drawX < -cellW || drawX > renderW) continue;
+
           ctx!.fillStyle = `rgba(${cell.r},${cell.g},${cell.b},${cell.a})`;
-          ctx!.fillText(cell.char, c * cellW, r * cellH);
+          ctx!.fillText(cell.char, drawX, r * cellH);
         }
       }
     }
