@@ -133,7 +133,7 @@ body {
 /* ── Typewriter slogan ── */
 @keyframes typewriter {
   from { max-width: 0; }
-  to   { max-width: 24ch; }
+  to   { max-width: 38ch; }
 }
 
 @keyframes typewriter-caret {
@@ -148,6 +148,6 @@ body {
   max-width: 0;
   border-right: 2px solid rgba(96,165,250,0.7);
   animation:
-    typewriter 2.8s steps(34) 1.2s forwards,
+    typewriter 2.4s steps(34) 1.2s forwards,
     typewriter-caret 0.8s step-end infinite;
 }
