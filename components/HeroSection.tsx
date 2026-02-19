@@ -45,14 +45,19 @@ export default function HeroSection() {
           </span>
         </h1>
 
-        <p className="mt-8 text-[clamp(0.85rem,2.5vw,1.1rem)] tracking-[0.15em] text-text">
-          2026.03.19 THU&ensp;&middot;&ensp;東京 大手町
+        <p
+          className="mt-8 inline-block rounded-full border border-text/10 bg-bg/60 px-6 py-2 text-[clamp(0.85rem,2.5vw,1.1rem)] font-semibold tracking-[0.15em] text-text backdrop-blur-sm"
+          style={{
+            textShadow: "0 0 20px rgba(240,240,240,0.15)",
+          }}
+        >
+          2026.03.19 THU&ensp;&middot;&ensp;18:00–20:30&ensp;&middot;&ensp;東京 大手町
         </p>
 
         <div className="mt-14">
           <a
             href="#register"
-            className="glow-cta inline-block cursor-pointer border bg-cta/10 px-12 py-4 text-sm font-bold tracking-wide text-cta-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
+            className="glow-cta inline-block cursor-pointer border bg-cta/20 px-12 py-4 text-base font-bold tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
           >
             出場する（無料）
           </a>

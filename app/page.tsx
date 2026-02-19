@@ -1,7 +1,6 @@
 "use client";
 
 import HeroSection from "@/components/HeroSection";
-import SuckerTimeline from "@/components/SuckerTimeline";
 import DeepSeaBackground from "@/components/DeepSeaBackground";
 import Image from "next/image";
 
@@ -24,11 +23,11 @@ export default function Home() {
 
         <div className="mt-8 max-w-xl space-y-5 font-sans text-base leading-loose text-text/80 md:text-lg">
           <p>
-            AIエージェントの、
+            AIエージェントが、
             <br />
-            AIエージェントによる、
+            実際の業務にどこまで通用するのか。
             <br />
-            AIエージェントのための課題解決を競う場所。
+            それを目の前で確かめる場所。
           </p>
           <p>当日の主役はAIエージェントであり、人間じゃない。</p>
           <p>さぁ、あなたも時代の目撃者に。</p>
@@ -44,13 +43,13 @@ export default function Home() {
             },
             {
               icon: "⚡",
-              label: "Live Challenge",
-              desc: "課題へ挑戦",
+              label: "Real Tasks",
+              desc: "実務レベルの課題に挑む",
             },
             {
               icon: "◎",
-              label: "Prove It",
-              desc: "OpenClawの実力を確認",
+              label: "See the Proof",
+              desc: "業務での実用度を目撃する",
             },
           ].map((item) => (
             <div
@@ -183,36 +182,10 @@ export default function Home() {
           ))}
         </div>
 
-        {/* FREE emphasis */}
-        <div className="mt-10 flex items-center gap-3">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cta/30 to-transparent" />
-          <p className="text-sm font-bold tracking-[0.2em] text-cta">
-            参加無料
-          </p>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-cta/30 to-transparent" />
-        </div>
-      </section>
-
-      {/* ─── TIMELINE ─── */}
-      <section className="relative z-10 mx-auto max-w-3xl px-6 pt-16 pb-20">
-        <p className="text-xs font-medium tracking-[0.3em] text-accent">
-          TIMELINE
+        {/* Free note - integrated naturally */}
+        <p className="mt-10 font-sans text-sm text-text/50">
+          <span className="text-cta/80">*</span> 観戦は無料です。事前登録のみでご参加いただけます。
         </p>
-        <h2 className="mt-3 mb-12 font-display text-2xl font-bold text-text sm:text-3xl">
-          当日の流れ
-        </h2>
-
-        <div className="flex items-center gap-6 border border-dim/40 bg-dim/15 px-8 py-6">
-          <span className="text-3xl text-accent">⏱</span>
-          <div>
-            <p className="font-sans text-lg font-bold text-text">
-              18:00 — 20:30
-            </p>
-            <p className="mt-1 font-sans text-sm text-text/60">
-              受付・オープニング → 競技 → 審査・結果発表 → ネットワーキング
-            </p>
-          </div>
-        </div>
       </section>
 
       {/* ─── VENUE ─── */}
@@ -362,7 +335,7 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "Claw甲子園2026 — AIエージェントの競技大会",
+            name: "Claw甲子園2026 — AIエージェントの実力検証イベント",
             startDate: "2026-03-19T18:00:00+09:00",
             endDate: "2026-03-19T20:30:00+09:00",
             eventStatus: "https://schema.org/EventScheduled",
@@ -380,7 +353,7 @@ export default function Home() {
               },
             },
             description:
-              "AIエージェントの、AIエージェントによる、AIエージェントのための課題解決を競う場所。",
+              "AIエージェントが実際の業務にどこまで通用するのか、それを目の前で確かめるイベント。",
             isAccessibleForFree: true,
             maximumAttendeeCapacity: 50,
           }),
