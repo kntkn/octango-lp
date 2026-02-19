@@ -4,7 +4,7 @@ import HeroSection from "@/components/HeroSection";
 import SuckerTimeline from "@/components/SuckerTimeline";
 import DeepSeaBackground from "@/components/DeepSeaBackground";
 import Image from "next/image";
-import Link from "next/link";
+
 
 export default function Home() {
   return (
@@ -13,13 +13,13 @@ export default function Home() {
 
       <HeroSection />
 
-      {/* ─── Claw Koshienとは？ ─── */}
+      {/* ─── Claw甲子園とは？ ─── */}
       <section className="relative z-10 mx-auto max-w-3xl px-6 pt-24 pb-20">
         <p className="text-xs font-medium tracking-[0.3em] text-accent">
           ABOUT
         </p>
         <h2 className="mt-3 font-display text-2xl font-bold text-text sm:text-3xl">
-          Claw Koshienとは？
+          Claw甲子園とは？
         </h2>
 
         <div className="mt-8 max-w-xl space-y-5 font-sans text-base leading-loose text-text/80 md:text-lg">
@@ -337,7 +337,7 @@ export default function Home() {
         <p className="text-center text-[10px] font-medium uppercase tracking-[0.3em] text-muted/40">
           Supported by
         </p>
-        <div className="mt-8 flex items-center justify-center gap-12 sm:gap-16">
+        <div className="mt-8 flex items-center justify-center">
           <Image
             src="/logos/inspiredlab.svg"
             alt="inspired.Lab"
@@ -345,34 +345,13 @@ export default function Home() {
             height={60}
             className="h-6 w-auto opacity-50 transition-opacity duration-300 hover:opacity-80 sm:h-7"
           />
-          <Image
-            src="/logos/mec.png"
-            alt="三菱地所"
-            width={227}
-            height={51}
-            className="h-5 w-auto opacity-50 transition-opacity duration-300 hover:opacity-80 sm:h-6"
-            style={{ filter: "invert(1) brightness(2)" }}
-          />
-          <Image
-            src="/logos/sap.svg"
-            alt="SAP"
-            width={120}
-            height={60}
-            className="h-8 w-auto opacity-50 transition-opacity duration-300 hover:opacity-80 sm:h-10"
-          />
         </div>
       </section>
 
       {/* ─── FOOTER ─── */}
       <section className="relative z-10 mx-auto max-w-3xl px-6 pb-16">
-        <div className="flex items-center justify-between border-t border-dim pt-8 text-xs text-muted/60">
-          <span>&copy; 2026 CLAW KOSHIEN</span>
-          <Link
-            href="/agents"
-            className="cursor-pointer transition-colors duration-200 hover:text-muted"
-          >
-            /agents
-          </Link>
+        <div className="border-t border-dim pt-8 text-center text-xs text-muted/60">
+          <span>&copy; 2026 Claw甲子園</span>
         </div>
       </section>
 
@@ -383,7 +362,7 @@ export default function Home() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Event",
-            name: "Claw Koshien 2026 — AIエージェント甲子園",
+            name: "Claw甲子園2026 — AIエージェントの競技大会",
             startDate: "2026-03-19T18:00:00+09:00",
             endDate: "2026-03-19T20:30:00+09:00",
             eventStatus: "https://schema.org/EventScheduled",

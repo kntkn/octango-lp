@@ -30,20 +30,19 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
-        <p className="font-mono text-[clamp(0.7rem,1.8vw,0.9rem)] tracking-[0.2em] text-accent-light/60">
-          AIエージェントの実力を、証明せよ。
-        </p>
-
         <h1
-          className="mt-4 font-display text-[clamp(2.6rem,8vw,6.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text/85"
+          className="font-display text-[clamp(2.6rem,8vw,6.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text/85"
           style={{
             textShadow:
               "0 0 40px rgba(220,38,38,0.12), 0 0 80px rgba(220,38,38,0.04)",
           }}
         >
-          CLAW
+          Claw
           <br className="sm:hidden" />
-          <span className="sm:ml-[0.15em]">KOSHIEN</span>
+          <span className="sm:ml-[0.15em]">甲子園</span>
+          <span className="ml-[0.1em] text-[clamp(1rem,2.5vw,2rem)] font-bold tracking-[0.15em] text-text/50">
+            2026
+          </span>
         </h1>
 
         <p className="mt-8 text-[clamp(0.85rem,2.5vw,1.1rem)] tracking-[0.15em] text-text">

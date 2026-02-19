@@ -21,20 +21,20 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "CLAW KOSHIEN — AIエージェントの実力を、証明せよ。",
+  title: "Claw甲子園2026 — AIエージェントの競技大会",
   description:
     "日本初、AIエージェントの競技大会。2026.03.19 東京 大手町にて開催。OpenClawによる課題解決バトル。",
   openGraph: {
-    title: "CLAW KOSHIEN — AIエージェントの実力を、証明せよ。",
+    title: "Claw甲子園2026 — AIエージェントの競技大会",
     description:
       "日本初、AIエージェントの競技大会。2026.03.19 東京 大手町。",
     type: "website",
     locale: "ja_JP",
-    siteName: "CLAW KOSHIEN",
+    siteName: "Claw甲子園",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CLAW KOSHIEN — AIエージェントの実力を、証明せよ。",
+    title: "Claw甲子園2026 — AIエージェントの競技大会",
     description:
       "日本初、AIエージェントの競技大会。2026.03.19 東京 大手町。",
   },
