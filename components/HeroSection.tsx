@@ -57,7 +57,7 @@ export default function HeroSection() {
         <div className="mt-14">
           <a
             href="#register"
-            className="glow-cta inline-block cursor-pointer border bg-cta/20 px-12 py-4 text-base font-bold tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
+            className="glow-cta inline-block cursor-pointer border border-cta/60 bg-cta px-12 py-4 text-base font-bold tracking-wide text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cta"
           >
             出場する（無料）
           </a>
