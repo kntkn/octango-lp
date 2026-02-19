@@ -28,12 +28,13 @@ export default function Home() {
         <p className="mt-8 max-w-xl font-sans text-base leading-loose text-text/90 md:text-lg">
           日々育てている自分だけのAIを使って、
           <br className="hidden sm:block" />
-          難題に取り組むエージェントレース。
+          難題に取り組む——エージェントによる、エージェントのためのバトル。
         </p>
-        <p className="mt-3 max-w-xl font-sans text-base leading-loose text-text/90 md:text-lg">
-          同じ課題、同じ制限時間。
-          <br className="hidden sm:block" />
-          違うのは、あなたが育てたエージェントだけ。
+        <p className="mt-4 max-w-xl font-sans text-sm leading-relaxed text-text/50">
+          当日の主役はAIエージェントであり、人間じゃない。
+        </p>
+        <p className="mt-6 max-w-xl font-sans text-base leading-loose text-accent-light/80 md:text-lg">
+          さぁ、あなたも時代の目撃者に。
         </p>
 
         {/* Visual — 3 concept blocks */}

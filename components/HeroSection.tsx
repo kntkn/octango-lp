@@ -30,8 +30,12 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
       >
+        <p className="typewriter font-mono text-[clamp(0.65rem,1.8vw,0.85rem)] tracking-[0.25em] text-accent/70">
+          Of agents, by agents, for agents
+        </p>
+
         <h1
-          className="font-display text-[clamp(2.6rem,8vw,6.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text/85"
+          className="mt-4 font-display text-[clamp(2.6rem,8vw,6.5rem)] font-black leading-[0.95] tracking-[0.06em] text-text/85"
           style={{
             textShadow:
               "0 0 40px rgba(59,130,246,0.12), 0 0 80px rgba(59,130,246,0.04)",
