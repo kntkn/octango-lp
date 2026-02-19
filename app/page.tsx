@@ -226,7 +226,7 @@ export default function Home() {
               Inspired.Lab
             </p>
             <p className="mt-1 font-sans text-sm text-text/60">
-              三菱地所 &times; SAP Japan
+              三菱地所株式会社とSAPジャパンが共同で運営している施設
             </p>
           </div>
           <div className="space-y-2 text-sm text-text/70">
@@ -314,9 +314,9 @@ export default function Home() {
           <Image
             src="/logos/inspiredlab.svg"
             alt="inspired.Lab"
-            width={120}
-            height={60}
-            className="h-6 w-auto opacity-50 transition-opacity duration-300 hover:opacity-80 sm:h-7"
+            width={240}
+            height={120}
+            className="h-10 w-auto sm:h-12"
           />
         </div>
       </section>
